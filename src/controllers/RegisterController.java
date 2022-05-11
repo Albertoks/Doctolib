@@ -1,13 +1,14 @@
-package controllers;
+package src.controllers;
 
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import models.Database;
-import views.AppFrame;
-import views.Login;
-import views.Register;
+import src.models.Database;
+import src.views.AppFrame;
+import src.views.Login;
+import src.views.Register;
 
 public class RegisterController implements ActionListener {
     private Register registerPanel;

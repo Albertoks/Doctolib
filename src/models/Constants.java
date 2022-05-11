@@ -1,4 +1,4 @@
-package models;
+package src.models;
 
 public class Constants {
     public static final int width = 1062;

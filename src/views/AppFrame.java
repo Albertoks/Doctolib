@@ -1,27 +1,32 @@
-package views;
+package src.views;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import models.Constants;
+import src.models.Constants;
 
-public class AppFrame {
+public class AppFrame implements Runnable {
 
-    public static JFrame mainFrame=new JFrame();
+    public static JFrame mainFrame = new JFrame();
 
     public AppFrame() {
         Login loginPanel = new Login();
         mainFrame.getContentPane().add(loginPanel);
         mainFrame.setBounds(100, 100, Constants.width, Constants.height);
+        mainFrame.setLocationRelativeTo(null);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setVisible(true);
     }
 
     public static void setPanel(JPanel newPanel) {
-        //mainFrame.remove(mainFrame.getContentPane()); ps grosse merde ca ne marche ap
+        // mainFrame.remove(mainFrame.getContentPane()); ps grosse merde ca ne marche ap
         mainFrame.setContentPane(newPanel);
         mainFrame.revalidate();
         mainFrame.repaint();
+    }
+
+    @Override
+    public void run() {
+        mainFrame.setVisible(true);
     }
 
 }

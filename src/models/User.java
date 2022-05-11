@@ -1,4 +1,4 @@
-package models;
+package src.models;
 
 public class User {
     private String prenom, login, password;

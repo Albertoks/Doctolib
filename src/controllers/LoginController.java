@@ -1,16 +1,16 @@
-package controllers;
+package src.controllers;
 
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import models.Database;
-import models.User;
-import views.Accueil;
-import views.AppFrame;
-import views.Login;
-import views.Register;
-import views.Schedule;
+import src.models.Database;
+import src.models.User;
+import src.views.AppFrame;
+import src.views.Login;
+import src.views.Register;
+import src.views.Schedule;
 
 public class LoginController implements ActionListener {
     private Login loginPanel;
@@ -18,7 +18,7 @@ public class LoginController implements ActionListener {
     private User user = null;
 
     public LoginController(Login login) {
-        this.loginPanel=login;
+        this.loginPanel = login;
         this.database = Database.getInstance();
     }
 
