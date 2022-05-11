@@ -10,6 +10,7 @@ import views.Accueil;
 import views.AppFrame;
 import views.Login;
 import views.Register;
+import views.Schedule;
 
 public class LoginController implements ActionListener {
     private Login loginPanel;
@@ -30,7 +31,7 @@ public class LoginController implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Login ou mot de passe incorrect.", "Erreur login",
                             JOptionPane.ERROR_MESSAGE);
                 } else {
-                    AppFrame.setPanel(new Accueil(user.getPrenom()));
+                    AppFrame.setPanel(new Schedule(user));
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Veuillez remplir les champs avant de valider.", "Erreur champ",
