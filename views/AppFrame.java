@@ -3,6 +3,8 @@ package views;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import models.Constants;
+
 public class AppFrame {
 
     public static JFrame mainFrame=new JFrame();
@@ -10,7 +12,7 @@ public class AppFrame {
     public AppFrame() {
         Login loginPanel = new Login();
         mainFrame.getContentPane().add(loginPanel);
-        mainFrame.setBounds(100, 100, 800, 800);
+        mainFrame.setBounds(100, 100, Constants.width, Constants.height);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setVisible(true);
     }

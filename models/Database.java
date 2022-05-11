@@ -7,7 +7,7 @@ public class Database {
 
     private Connection conn;
     private PreparedStatement statement;
-    private String dbName = "doctolib";
+    private String dbName = "java";
     private String login = "root";
     private String password = "";
     private String strUrl = "jdbc:mysql://localhost:3306/" + dbName;
