@@ -1,22 +1,31 @@
 package src.models;
 
 public class User {
-    private String prenom, login, password;
+    private String lastname, firstname, login, password;
     private Boolean admin;
 
-    public User(String prenom, String login, String password, Boolean admin) {
-        this.prenom = prenom;
+    public User(String lastname, String firstname, String login, String password, Boolean admin) {
+        this.lastname = lastname;
+        this.firstname = firstname;
         this.login = login;
         this.password = password;
         this.admin = admin;
     }
 
-    public String getPrenom() {
-        return prenom;
+    public String getLastname() {
+        return this.lastname;
     }
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     public String getLogin() {

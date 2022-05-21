@@ -23,20 +23,17 @@ public class LoginController implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-
         if (e.getSource() == this.loginPanel.getBtnLogin()) {
-            if (this.loginPanel.getLogin().length() > 0 && this.loginPanel.getPassword().length() > 0) {
-                user = database.login(this.loginPanel.getLogin(), this.loginPanel.getPassword());
-                if (user == null) {
+            if (this.loginPanel.getLogin().length() > 0 && this.loginPanel.getPassword().length() > 0)
+                if ((user = database.login(this.loginPanel.getLogin(), this.loginPanel.getPassword())) == null)
                     JOptionPane.showMessageDialog(null, "Login ou mot de passe incorrect.", "Erreur login",
                             JOptionPane.ERROR_MESSAGE);
-                } else {
+                else
                     AppFrame.setPanel(new Schedule(user));
-                }
-            } else {
+
+            else
                 JOptionPane.showMessageDialog(null, "Veuillez remplir les champs avant de valider.", "Erreur champ",
                         JOptionPane.ERROR_MESSAGE);
-            }
         } else if (e.getSource() == this.loginPanel.getBtnRegister()) {
             AppFrame.setPanel(new Register());
         }

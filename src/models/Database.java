@@ -24,29 +24,40 @@ public class Database {
         }
     }
 
-    public void logout() {
-        try {
-            conn.close();
-        } catch (SQLException e) {
-            System.out.println("Echec de la déconnexion !" + e.getMessage());
-        }
-    }
-
     public static Database getInstance() {
         if (instance == null)
             instance = new Database();
         return instance;
     }
 
-    public boolean register(String login, String password, String nom, String prenom) {
+    public User login(String login, String password) {
         try {
-            String query = "INSERT INTO `users` (`login`, `password`, `nom`, `prenom`, `admin`) VALUES (?, ?, ?, ?, ?)";
+            String query = "Select * from users where login = ? And password = ?";
+            statement = conn.prepareStatement(query);
+            statement.setString(1, login);
+            statement.setString(2, password);
+            ResultSet results = statement.executeQuery();
+
+            if (results.next())
+                return new User(results.getString("lastname"), results.getString("firstname"),
+                        results.getString("login"),
+                        results.getString("password"),
+                        results.getBoolean("admin"));
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public boolean register(String login, String password, String lastname, String firstname) {
+        try {
+            String query = "INSERT INTO `users` (`login`, `password`, `lastname`, `firstname`, `admin`) VALUES (?, ?, ?, ?, ?)";
             statement = conn.prepareStatement(query);
 
             statement.setString(1, login);
             statement.setString(2, password);
-            statement.setString(3, nom);
-            statement.setString(4, prenom);
+            statement.setString(3, lastname);
+            statement.setString(4, firstname);
             statement.setBoolean(5, false);
 
             if (statement.execute())
@@ -58,15 +69,15 @@ public class Database {
         return false;
     }
 
-    public boolean registerAdmin(String login, String password, String nom, String prenom) {
+    public boolean registerAdmin(String login, String password, String lastname, String firstname) {
         try {
-            String query = "INSERT INTO `users` (`login`, `password`, `nom`, `prenom`, `admin`) VALUES (?, ?, ?, ?, ?)";
+            String query = "INSERT INTO `users` (`login`, `password`, `lastname`, `firstname`, `admin`) VALUES (?, ?, ?, ?, ?)";
             statement = conn.prepareStatement(query);
 
             statement.setString(1, login);
             statement.setString(2, password);
-            statement.setString(3, nom);
-            statement.setString(4, prenom);
+            statement.setString(3, lastname);
+            statement.setString(4, firstname);
             statement.setBoolean(5, true);
 
             statement.execute();
@@ -78,20 +89,11 @@ public class Database {
         return false;
     }
 
-    public User login(String login, String password) {
+    public void logout() {
         try {
-            String query = "Select * from users where login = ? And password = ?";
-            statement = conn.prepareStatement(query);
-            statement.setString(1, login);
-            statement.setString(2, password);
-            ResultSet results = statement.executeQuery();
-            if (results.next()) {
-                return new User(results.getString("prenom"), results.getString("login"), results.getString("password"),
-                        results.getBoolean("admin"));
-            }
+            conn.close();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Echec de la déconnexion !" + e.getMessage());
         }
-        return null;
     }
 }
