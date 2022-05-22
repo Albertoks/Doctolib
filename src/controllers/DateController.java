@@ -3,19 +3,30 @@ package src.controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import src.views.Schedule;
 
 public class DateController implements ActionListener {
     private Schedule schedule;
-    private Calendar date = new GregorianCalendar(2022, Calendar.JANUARY, 3);
+    private Calendar date = Calendar.getInstance();
     private String[] tmpWeek = { null, null, null, null, null };
-
-    
 
     public DateController(Schedule schedule) {
         this.schedule = schedule;
+
+        if (date.get(Calendar.DAY_OF_WEEK) == 7)
+            date.add(Calendar.DATE, 2);
+        else if (date.get(Calendar.DAY_OF_WEEK) == 1)
+            date.add(Calendar.DATE, 1);
+        else if (date.get(Calendar.DAY_OF_WEEK) == 3)
+            date.add(Calendar.DATE, -1);
+        else if (date.get(Calendar.DAY_OF_WEEK) == 4)
+            date.add(Calendar.DATE, -2);
+        else if (date.get(Calendar.DAY_OF_WEEK) == 5)
+            date.add(Calendar.DATE, -3);
+        else if (date.get(Calendar.DAY_OF_WEEK) == 6)
+            date.add(Calendar.DATE, -4);
+
         for (int i = 0; i < 5; i++) {
             String day = "";
             String month = "";
@@ -67,10 +78,10 @@ public class DateController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.schedule.getSemainePre()) {
             this.removeWeek();
-        } else if(e.getSource() == this.schedule.getSemaineSuiv()) {
+        } else if (e.getSource() == this.schedule.getSemaineSuiv()) {
             this.addWeek();
         }
-        
+
     }
 
     public void addWeek() {
@@ -175,5 +186,5 @@ public class DateController implements ActionListener {
         // if (this.user.isAdmin()) {}
         schedule.repaint();
     }
-    
+
 }
