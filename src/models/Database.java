@@ -1,8 +1,10 @@
 package src.models;
 
+import java.nio.file.FileStore;
 import java.sql.*;
 import java.util.HashMap;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Database {
     private static Database instance = null;
@@ -99,16 +101,18 @@ public class Database {
         }
     }
 
-    public HashMap<Date, User> getReservations(String doctor) {
-        HashMap<Date, User> reservations = new HashMap<Date, User>();
+    public ArrayList<Reservation> getReservations(String doctor, Date firstDate, Date lastDate) {
+        ArrayList<Reservation> reservations = new ArrayList<Reservation>();
         try {
-            String query = "SELECT patient, rdv, firstname, lastname FROM reservations, users WHERE reservations.doctor = users.id AND doctor = (SELECT id FROM users WHERE login = ?)";
+            String query = "SELECT patient, date, time, firstname, lastname FROM reservations, users WHERE reservations.patient = users.id AND doctor = (SELECT id FROM users WHERE login = ?) AND date >= ? AND date <= ?";
             statement = conn.prepareStatement(query);
             statement.setString(1, doctor);
+            statement.setDate(2,firstDate);
+            statement.setDate(3,lastDate);
             ResultSet results = statement.executeQuery();
 
             while (results.next()) {
-                reservations.put(results.getDate("rdv"), new User(results.getString("firstname"), results.getString("lastname"), null, null, null));
+                reservations.add(new Reservation(results.getDate("date"), results.getString("time"), new User(results.getString("firstname"), results.getString("lastname"), null, null, null)));
             }
             return reservations;
 
