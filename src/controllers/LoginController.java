@@ -28,9 +28,10 @@ public class LoginController implements ActionListener {
                 if ((user = database.login(this.loginPanel.getLogin(), this.loginPanel.getPassword())) == null)
                     JOptionPane.showMessageDialog(null, "Login ou mot de passe incorrect.", "Erreur login",
                             JOptionPane.ERROR_MESSAGE);
-                else
+                else {
+                    AppFrame.user = user;
                     AppFrame.setPanel(new Schedule(user));
-
+                }
             else
                 JOptionPane.showMessageDialog(null, "Veuillez remplir les champs avant de valider.", "Erreur champ",
                         JOptionPane.ERROR_MESSAGE);

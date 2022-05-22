@@ -4,15 +4,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
 
+import src.models.Database;
+import src.views.AppFrame;
 import src.views.Schedule;
 
 public class DateController implements ActionListener {
     private Schedule schedule;
+    private Database database;
     private Calendar date = Calendar.getInstance();
     private String[] tmpWeek = { null, null, null, null, null };
 
     public DateController(Schedule schedule) {
         this.schedule = schedule;
+        this.database = Database.getInstance();
 
         if (date.get(Calendar.DAY_OF_WEEK) == 7)
             date.add(Calendar.DATE, 2);
@@ -71,6 +75,7 @@ public class DateController implements ActionListener {
             date.add(Calendar.DATE, 1);
         }
         schedule.setWeek(tmpWeek);
+        schedule.setReservations(database.getReservations(AppFrame.user.getLogin()));
         this.afficherTableau();
     }
 
@@ -130,6 +135,7 @@ public class DateController implements ActionListener {
             date.add(Calendar.DATE, 1);
         }
         schedule.setWeek(tmpWeek);
+        schedule.setReservations(database.getReservations(AppFrame.user.getLogin()));
         this.afficherTableau();
     }
 
@@ -179,6 +185,7 @@ public class DateController implements ActionListener {
             date.add(Calendar.DATE, 1);
         }
         schedule.setWeek(tmpWeek);
+        schedule.setReservations(database.getReservations(AppFrame.user.getLogin()));
         this.afficherTableau();
     }
 

@@ -1,6 +1,7 @@
 package src.models;
 
 import java.sql.*;
+import java.util.HashMap;
 
 public class Database {
     private static Database instance = null;
@@ -95,5 +96,24 @@ public class Database {
         } catch (SQLException e) {
             System.out.println("Echec de la déconnexion !" + e.getMessage());
         }
+    }
+
+    public HashMap<Date, User> getReservations(String doctor) {
+        HashMap<Date, User> reservations = new HashMap<Date, User>();
+        try {
+            String query = "SELECT patient, rdv, firstname, lastname FROM reservations, users WHERE reservations.doctor = users.id AND doctor = (SELECT id FROM users WHERE login = ?)";
+            statement = conn.prepareStatement(query);
+            statement.setString(1, doctor);
+            ResultSet results = statement.executeQuery();
+
+            while (results.next()) {
+                reservations.put(results.getDate("rdv"), new User(results.getString("firstname"), results.getString("lastname"), null, null, null));
+            }
+            return reservations;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 }

@@ -3,6 +3,10 @@ package src.views;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map.Entry;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -15,6 +19,7 @@ public class Schedule extends JPanel {
     private String[] week = { null, null, null, null, null };
     private String[] time = { "8h", "8h30", "9h", "9h30", "10h", "10h30", "11h", "11h30", "12h", "12h30", "13h",
             "13h30", "14h", "14h30", "15h", "15h30", "16h", "16h30" };
+    private HashMap<Date, User> reservations;
     private JButton semainePre, semaineSuiv;
     private DateController dateController;
 
@@ -29,12 +34,11 @@ public class Schedule extends JPanel {
         this.semainePre.setBounds(660, 550, width, height);
         this.semainePre.addActionListener(this.dateController);
         this.add(semainePre);
-        
+
         this.semaineSuiv = new JButton("Semaine suiv. >");
         this.semaineSuiv.setBounds(850, 550, width, height);
         this.semaineSuiv.addActionListener(this.dateController);
         this.add(semaineSuiv);
-
     }
 
     @Override
@@ -53,6 +57,14 @@ public class Schedule extends JPanel {
                 g.drawString(this.week[i], 80 + posX, 10);
             posX += pas;
         }
+        // for(Entry<String, User> rdv : reservations.entrySet()) {
+        //     String[] reservation = rdv.getKey().split("-");
+        //     String year = reservation[0];
+        //     String month = reservation[1];
+        //     String day = reservation[2];
+
+        // }
+
     }
 
     public String[] getWeek() {
@@ -69,5 +81,9 @@ public class Schedule extends JPanel {
 
     public JButton getSemaineSuiv() {
         return semaineSuiv;
+    }
+
+    public void setReservations(HashMap<Date, User> reservations) {
+        this.reservations = reservations;
     }
 }

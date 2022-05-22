@@ -13,11 +13,13 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import src.models.Constants;
+import src.models.User;
 
 public class AppFrame implements Runnable {
 
     public static JFrame mainFrame = new JFrame("Doctolib");
     public static ClassLoader loader;
+    public static User user;
     public AppFrame() {
         Login loginPanel = new Login();
         //PatientSchedule patientSchedule = new PatientSchedule();
@@ -35,6 +37,7 @@ public class AppFrame implements Runnable {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setResizable(false);
         mainFrame.add(loginPanel);
+        // mainFrame.add(new Schedule(null));
         //GridBagConstraints c=new GridBagConstraints();
         //c.fill = GridBagConstraints.HORIZONTAL;
 
