@@ -15,7 +15,7 @@ import javax.swing.plaf.ColorUIResource;
 import src.controllers.RegisterController;
 
 public class Register extends JPanel {
-    private JLabel title, nlogin, prenom, nom, mdp;
+    private JLabel title, textlogin, prenom, nom, mdp;
     private JTextField login, firstname, lastname;
     private JPasswordField password;
     private JButton btnRegister, btnLogin;
@@ -29,7 +29,7 @@ public class Register extends JPanel {
         this.image = new ImageIcon("res/logopetit.jpg").getImage();
 
         this.login = new JTextField(10);
-        this.nlogin = new JLabel("Login");
+        this.textlogin = new JLabel("Pseudo");
 
         this.firstname = new JTextField(10);
         this.prenom = new JLabel("Prenom");
@@ -38,7 +38,7 @@ public class Register extends JPanel {
         this.nom = new JLabel("Nom");
 
         this.password = new JPasswordField(10);
-        this.mdp = new JLabel("Password");
+        this.mdp = new JLabel("Mot de passe");
 
         this.btnRegister = new JButton("S'inscrire");
         this.btnLogin = new JButton("Se connecter");
@@ -46,29 +46,33 @@ public class Register extends JPanel {
         this.setLayout(null);
         this.registerController = new RegisterController(this);
 
-        int x = 500;
-        int y = 250;
-        this.title.setBounds(x - 40, y - 70, 75, 25);
+        int x = 490, y = 180, height = 25, width = 100;
+        int xbarre = 400, widthbarre = 250;
 
-        this.login.setBounds(x, y, 140, 25);
-        this.nlogin.setBounds(x - 100, y, 75, 25);
+        this.title.setBounds(x , y, 75, height);
 
-        this.password.setBounds(x, y + 50, 140, 25);
-        this.mdp.setBounds(x - 100, y + 50, 75, 25);
+        this.prenom.setBounds(x+5, y+50, width, height);
+        this.firstname.setBounds(xbarre, y+80, widthbarre, height);
 
-        this.lastname.setBounds(x, y + 100, 140, 25);
-        this.nom.setBounds(x - 100, y + 100, 75, 25);
+        this.nom.setBounds(x+10, y + 125, width, height);
+        this.lastname.setBounds(xbarre, y + 155, widthbarre, height);
 
-        this.firstname.setBounds(x, y + 150, 140, 25);
-        this.prenom.setBounds(x - 100, y + 150, 75, 25);
+        this.textlogin.setBounds(x+5, y + 200, width, height);
+        this.login.setBounds(xbarre, y + 230, widthbarre, height);
 
-        this.btnRegister.setBounds(x - 100, y + 200, 245, 25);
-        this.btnLogin.setBounds(x + 70, y + 335, 150, 25);
+        this.mdp.setBounds(x, y + 275, width, height);
+        this.password.setBounds(xbarre, y + 305, widthbarre, height);
+
+        this.btnRegister.setBounds(xbarre, y + 380, widthbarre, height);
+        this.btnRegister.setBackground(Color.YELLOW);
+
+        this.btnLogin.setBounds(xbarre, y + 430, widthbarre, height);
+        this.btnLogin.setBackground(Color.WHITE);
 
         this.add(title);
 
         this.add(login);
-        this.add(nlogin);
+        this.add(textlogin);
 
         this.add(firstname);
         this.add(prenom);
@@ -96,8 +100,8 @@ public class Register extends JPanel {
         int width = getWidth();
         int height = getHeight();
         g.setColor(Color.white);
-        g.fillRect(width / 4, height / 5, width / 2, height - 300);
-        g.drawImage(image, 2, 3, 325, 125, this);
+        g.fillRect(width / 4, height / 5, width / 2, height - 200);
+        g.drawImage(image, width / 3, 3, 325, 125, this);
     }
 
     public JLabel getTitle() {
