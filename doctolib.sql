@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : localhost
--- Généré le : dim. 22 mai 2022 à 13:03
--- Version du serveur :  8.0.23
--- Version de PHP : 7.4.16
+-- Hôte : 127.0.0.1:3306
+-- Généré le : dim. 22 mai 2022 à 19:26
+-- Version du serveur : 5.7.36
+-- Version de PHP : 7.4.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,7 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `doctolib`
 --
-CREATE DATABASE IF NOT EXISTS `doctolib` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE IF NOT EXISTS `doctolib` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `doctolib`;
 
 -- --------------------------------------------------------
@@ -29,18 +29,22 @@ USE `doctolib`;
 -- Structure de la table `reservations`
 --
 
-CREATE TABLE `reservations` (
-  `doctor` int NOT NULL,
-  `patient` int NOT NULL,
-  `rdv` timestamp NOT NULL
+DROP TABLE IF EXISTS `reservations`;
+CREATE TABLE IF NOT EXISTS `reservations` (
+  `doctor` int(11) NOT NULL,
+  `patient` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `time` time NOT NULL,
+  PRIMARY KEY (`doctor`,`date`,`patient`),
+  KEY `patient` (`patient`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `reservations`
 --
 
-INSERT INTO `reservations` (`doctor`, `patient`, `rdv`) VALUES
-(1, 7, '2022-05-26 16:14:25');
+INSERT INTO `reservations` (`doctor`, `patient`, `date`, `time`) VALUES
+(1, 7, '2022-05-26', '10:00:00');
 
 -- --------------------------------------------------------
 
@@ -48,14 +52,16 @@ INSERT INTO `reservations` (`doctor`, `patient`, `rdv`) VALUES
 -- Structure de la table `users`
 --
 
-CREATE TABLE `users` (
-  `id` int NOT NULL,
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `firstname` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lastname` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `admin` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `firstname` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lastname` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `admin` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `users`
@@ -63,34 +69,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `login`, `password`, `firstname`, `lastname`, `admin`) VALUES
 (1, 'Toks', 'admin', 'Nathan', 'Toko', 1),
-(7, 'Arnaud', 'arnaud', 'Quintois', 'Arnaud', 0);
-
---
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `reservations`
---
-ALTER TABLE `reservations`
-  ADD PRIMARY KEY (`doctor`,`rdv`,`patient`),
-  ADD KEY `patient` (`patient`);
-
---
--- Index pour la table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+(7, 'Arnaud', 'arnaud', 'Quintois', 'Arnaud', 0),
+(8, 'a', 'a', 'Arnaud', 'Quintois', 1);
 
 --
 -- Contraintes pour les tables déchargées
