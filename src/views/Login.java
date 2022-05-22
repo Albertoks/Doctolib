@@ -1,17 +1,22 @@
 package src.views;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.Console;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.plaf.ColorUIResource;
 
+import src.App;
 import src.controllers.LoginController;
 
 public class Login extends JPanel {
@@ -36,9 +41,11 @@ public class Login extends JPanel {
         this.password = new JPasswordField(10);
         this.mdp = new JLabel("Password");
 
-        this.btnLogin = new JButton("Se connecter");
+        this.btnLogin = new CustomButton("Se connecter", new Color(38, 171, 168),new Dimension(200,40),true);
         this.btnRegister = new JButton("S'inscrire");
 
+
+       
         this.setLayout(null);
 
         int x = 500, y = 250, height = 25;
@@ -50,7 +57,7 @@ public class Login extends JPanel {
         this.password.setBounds(x, y + 50, 140, height);
         this.mdp.setBounds(x - 100, y + 50, 75, height);
 
-        this.btnLogin.setBounds(x - 100, y + 200, 245, height);
+        this.btnLogin.setBounds(x - 100, y + 200, this.btnLogin.getWidth(), this.btnLogin.getHeight());
         this.btnRegister.setBounds(x + 70, y + 335, 150, height);
 
         this.loginController = new LoginController(this);
@@ -72,6 +79,7 @@ public class Login extends JPanel {
         this.setBackground(this.couleur);
         this.repaint();
     }
+
 
     @Override
     public void paintComponent(Graphics g) {
