@@ -2,6 +2,7 @@ package src.models;
 
 import java.sql.*;
 import java.util.HashMap;
+import java.util.Date;
 
 public class Database {
     private static Database instance = null;

@@ -83,7 +83,7 @@ public class Schedule extends JPanel {
         return semaineSuiv;
     }
 
-    public void setReservations(HashMap<Date, User> reservations) {
-        this.reservations = reservations;
+    public void setReservations(HashMap<Date, User> hashMap) {
+        this.reservations = hashMap;
     }
 }
