@@ -5,12 +5,12 @@ import java.util.Date;
 public class Reservation {
     private Date date;
     private String time;
-    private User patient;
+    private User user;
 
-    public Reservation(Date date, String time, User patient) {
+    public Reservation(Date date, String time, User user) {
         this.date = date;
         this.time = time;
-        this.patient = patient;
+        this.user = user;
     }
 
     public Date getDate() {
@@ -30,11 +30,11 @@ public class Reservation {
     }
 
     public User getPatient() {
-        return patient;
+        return user;
     }
 
     public void setPatient(User patient) {
-        this.patient = patient;
+        this.user = patient;
     }
-    
+
 }

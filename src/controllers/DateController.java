@@ -44,8 +44,7 @@ public class DateController implements ActionListener {
         Date firstDate = new java.sql.Date(this.rawWeek.get(0).getTimeInMillis());
         Date lastDate = new java.sql.Date(this.rawWeek.get(4).getTimeInMillis());
 
-        schedule.setReservations(database.getReservations(AppFrame.user.getLogin(), firstDate, lastDate));
-
+        schedule.setReservations(database.getDoctorReservations(AppFrame.user.getLogin(), firstDate, lastDate));
     }
 
     @Override
@@ -69,7 +68,7 @@ public class DateController implements ActionListener {
         Date firstDate = new java.sql.Date(this.rawWeek.get(0).getTimeInMillis());
         Date lastDate = new java.sql.Date(this.rawWeek.get(4).getTimeInMillis());
 
-        schedule.setReservations(database.getReservations(AppFrame.user.getLogin(), firstDate, lastDate));
+        schedule.setReservations(database.getDoctorReservations(AppFrame.user.getLogin(), firstDate, lastDate));
     }
 
     public void removeWeek() {
@@ -83,7 +82,7 @@ public class DateController implements ActionListener {
         Date firstDate = new java.sql.Date(this.rawWeek.get(0).getTimeInMillis());
         Date lastDate = new java.sql.Date(this.rawWeek.get(4).getTimeInMillis());
 
-        schedule.setReservations(database.getReservations(AppFrame.user.getLogin(), firstDate, lastDate));
+        schedule.setReservations(database.getDoctorReservations(AppFrame.user.getLogin(), firstDate, lastDate));
     }
 
     public void afficherTableau() {

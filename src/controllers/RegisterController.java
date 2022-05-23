@@ -26,12 +26,19 @@ public class RegisterController implements ActionListener {
             if (this.registerPanel.getLogin().length() > 0 && this.registerPanel.getPassword().length() > 0
                     && this.registerPanel.getFirstname().length() > 0
                     && this.registerPanel.getLastname().length() > 0) {
-                if (this.database.registerAdmin(this.registerPanel.getLogin(), this.registerPanel.getPassword(),
-                        this.registerPanel.getLastname(), this.registerPanel.getFirstname()))
+                Boolean res = this.database.register(this.registerPanel.getLogin(), this.registerPanel.getPassword(),
+                        this.registerPanel.getLastname(), this.registerPanel.getFirstname());
+                if (res) {
                     JOptionPane.showMessageDialog(null,
                             "Votre compte a été crée.",
                             "Inscription",
                             JOptionPane.PLAIN_MESSAGE);
+                    AppFrame.setPanel(new Login());
+                } else if (!res)
+                    JOptionPane.showMessageDialog(null,
+                            "Un compte avec un pseudo similaire existe déjà. Veuillez utiliser un autre pseudo.",
+                            "Compte existant",
+                            JOptionPane.INFORMATION_MESSAGE);
                 else
                     JOptionPane.showMessageDialog(null,
                             "Une erreur est survenue lors de votre inscription. Veuillez réessayer ultérieurement.",
