@@ -1,6 +1,9 @@
 package src.views;
 
 import javax.swing.JPanel;
+
+import src.controllers.HeaderController;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -11,12 +14,18 @@ public class Header extends JPanel {
     private CustomButton mesRdv;
     private CustomButton prendreRdv;
     private Color colorSet;
+    private HeaderController headerController;
 
     public Header(){
+        this.headerController = new HeaderController(this);
         colorSet= new Color(0, 152, 229);
         mesRdv = new CustomButton("Mes rendez-vous", colorSet,new Dimension(200,60),false);
 
         prendreRdv = new CustomButton("Prendre rendez-vous", colorSet,new Dimension(200,60),false);
+
+        mesRdv.addActionListener(this.headerController);
+        prendreRdv.addActionListener(this.headerController);
+
         this.setLayout(new GridBagLayout());
 
         GridBagConstraints c=new GridBagConstraints();
@@ -37,5 +46,12 @@ public class Header extends JPanel {
 
         this.setBackground(Color.WHITE);
     }
-    
+
+    public CustomButton getMesRdv() {
+        return mesRdv;
+    }
+
+    public CustomButton getPrendreRdv() {
+        return prendreRdv;
+    }
 }
