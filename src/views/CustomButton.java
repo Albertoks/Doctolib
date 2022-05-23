@@ -17,28 +17,29 @@ import java.awt.font.TextAttribute;
 
 public class CustomButton extends JButton {
     private int radius;
-    private boolean notHeaderButton;
+    private boolean isHeader;
     private boolean rounded;
+    private Font font;
+    private Map attributes;
 
-    public CustomButton(String title, Color color, Boolean rounded, Dimension dimension, Boolean notHeaderButton) {
+    public CustomButton(String title, Color color, Boolean rounded, Dimension dimension, Boolean isHeader) {
         super(title);
         this.radius = rounded ? 100 : 0;
-        this.notHeaderButton = notHeaderButton;
+        this.isHeader = isHeader;
         this.rounded = rounded;
         this.setHorizontalAlignment(SwingConstants.CENTER);
         this.setHorizontalTextPosition(SwingConstants.CENTER);
         this.setPreferredSize(dimension);
         this.setBackground(color);
 
-        if (notHeaderButton) {
-            this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        }
-        if (!notHeaderButton) {
+        this.font = this.getFont();
+        this.attributes = font.getAttributes();
+        if (isHeader) {
             this.setForeground(Color.WHITE);
-            Font font = this.getFont();
-            Map attributes = font.getAttributes();
-            attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-            this.setFont(font.deriveFont(attributes));
+        }
+
+        if (!isHeader) {
+            this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         }
 
         this.setFocusPainted(false);
@@ -52,8 +53,8 @@ public class CustomButton extends JButton {
 
     }
 
-    public CustomButton(String title, Color color, Dimension dimension, Boolean notHeaderButton) {
-        this(title, color, false, dimension, notHeaderButton);
+    public CustomButton(String title, Color color, Dimension dimension, Boolean isHeader) {
+        this(title, color, false, dimension, isHeader);
     }
 
     public CustomButton(ImageIcon icon, Color color, Boolean rounded, Dimension dimension) {
@@ -76,12 +77,12 @@ public class CustomButton extends JButton {
         g.setColor(getBackground());
         if (!rounded) {
             if (getModel().isRollover()) {
-                if (notHeaderButton) {
+                if (!isHeader) {
                     this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
                 }
                 setCursor(new Cursor(Cursor.HAND_CURSOR));
             } else {
-                if (notHeaderButton) {
+                if (!isHeader) {
                     this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
                 }
                 setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -103,7 +104,17 @@ public class CustomButton extends JButton {
         } else {
             g2.setStroke(new BasicStroke(1));
         }
-        if (notHeaderButton)
+        if (!isHeader)
             g2.drawRoundRect(0, 0, getSize().width - 1, getSize().height - 1, this.radius, this.radius);
+    }
+
+    public void setSelected(boolean isSelected) {
+        if (isSelected) {
+            attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+            this.setFont(font.deriveFont(attributes));
+        } else {
+            attributes.put(TextAttribute.UNDERLINE, -1);
+            this.setFont(font.deriveFont(attributes));
+        }
     }
 }

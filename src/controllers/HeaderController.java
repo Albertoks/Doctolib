@@ -15,9 +15,11 @@ public class HeaderController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.header.getMesRdv()) {
-            
+            this.header.getMesRdv().setSelected(true);
+            this.header.getPrendreRdv().setSelected(false);
         } else if (e.getSource() == this.header.getPrendreRdv()) {
-            
+            this.header.getPrendreRdv().setSelected(true);
+            this.header.getMesRdv().setSelected(false);
         }
     }
 

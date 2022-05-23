@@ -19,10 +19,11 @@ public class Header extends JPanel {
     public Header(){
         this.headerController = new HeaderController(this);
         colorSet= new Color(0, 152, 229);
-        mesRdv = new CustomButton("Mes rendez-vous", colorSet,new Dimension(200,60),false);
+        mesRdv = new CustomButton("Mes rendez-vous", colorSet,new Dimension(200,60),true);
 
-        prendreRdv = new CustomButton("Prendre rendez-vous", colorSet,new Dimension(200,60),false);
+        prendreRdv = new CustomButton("Prendre rendez-vous", colorSet,new Dimension(200,60),true);
 
+        mesRdv.setSelected(true);
         mesRdv.addActionListener(this.headerController);
         prendreRdv.addActionListener(this.headerController);
 

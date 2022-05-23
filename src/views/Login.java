@@ -42,7 +42,7 @@ public class Login extends JPanel {
         this.password = new JPasswordField(10);
         this.mdp = new JLabel("Mot de Passe");
 
-        this.btnLogin = new CustomButton("Se connecter", new Color(38, 171, 168),new Dimension(200,40),true);
+        this.btnLogin = new CustomButton("Se connecter", new Color(38, 171, 168),new Dimension(200,40),false);
         this.btnRegister = new JButton("S'inscrire");
 
 

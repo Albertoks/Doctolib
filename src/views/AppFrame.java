@@ -69,7 +69,7 @@ public class AppFrame implements Runnable {
         //----------------------------------
 
         //---------------------- FOOTER
-        button = new CustomButton("Se déconnecter",Color.ORANGE,new Dimension(200,40),true);
+        button = new CustomButton("Se déconnecter",Color.ORANGE,new Dimension(200,40),false);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipady = 0;       //reset to default
         c.weighty = 1.0;   //request any extra vertical space
