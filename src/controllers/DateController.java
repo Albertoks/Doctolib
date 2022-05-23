@@ -54,7 +54,6 @@ public class DateController implements ActionListener {
         } else if (e.getSource() == this.schedule.getSemaineSuiv()) {
             this.addWeek();
         }
-
     }
 
     public void addWeek() {
