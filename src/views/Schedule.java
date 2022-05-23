@@ -18,7 +18,8 @@ public class Schedule extends JPanel {
     private User user;
     private ArrayList<Calendar> rawWeek = new ArrayList<Calendar>();
     private String[] week = { null, null, null, null, null };
-    private String[] time = { "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00",
+    private String[] time = { "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30",
+            "13:00",
             "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30" };
     private ArrayList<Reservation> reservations = new ArrayList<Reservation>();
     private JButton semainePre, semaineSuiv;
@@ -58,23 +59,10 @@ public class Schedule extends JPanel {
                 g.drawString(this.week[i], 80 + posX, 10);
             posX += pas;
         }
-        // System.out.println(this.week[3]);
-        // if (this.reservations.get(1).getDate().toString().equals("2022-05-25"))
-        // System.out.println("YESSSS");
+
         if (this.reservations.size() > 0) {
             for (int i = 0; i < reservations.size(); i++) {
                 int reservationX = 0, reservationY = 0, decalX = 45, decalY = 15;
-                System.out.println(this.reservations.get(i).getPatient().getFirstname() + " " + this.reservations.get(i).getPatient().getLastname());
-                // String[] reservation = rdv.getKey().split("-");
-                // String year = reservation[0];
-                // String month = reservation[1];
-                // String day = reservation[2];
-                // if(this.rawWeek.)
-                // System.out.println("Date = " + reservations.get(i).getDate());
-                // System.out.println("Heure = " + reservations.get(i).getTime());
-                // System.out.println("Patient = " +
-                // reservations.get(i).getPatient().getFirstname() + " " +
-                // reservations.get(i).getPatient().getLastname());
 
                 String monday = "" + this.rawWeek.get(0).get(Calendar.DAY_OF_MONTH);
                 String thuesday = "" + this.rawWeek.get(1).get(Calendar.DAY_OF_MONTH);
@@ -85,54 +73,64 @@ public class Schedule extends JPanel {
                 String[] reservation = this.reservations.get(i).getDate().toString().split("-");
                 String[] tmpTime = this.reservations.get(i).getTime().split(":");
                 String finalTime = tmpTime[0] + ":" + tmpTime[1];
-                System.out.println(finalTime);
 
-                if(reservation[2].equals(monday)) reservationX = 51;
-                else if(reservation[2].equals(thuesday)) reservationX = 243;
-                else if(reservation[2].equals(wenesday)) reservationX = 435;
-                else if(reservation[2].equals(thirsday)) reservationX = 627;
-                else if(reservation[2].equals(friday)) reservationX = 819;
+                if (reservation[2].equals(monday))
+                    reservationX = 51;
+                else if (reservation[2].equals(thuesday))
+                    reservationX = 243;
+                else if (reservation[2].equals(wenesday))
+                    reservationX = 435;
+                else if (reservation[2].equals(thirsday))
+                    reservationX = 627;
+                else if (reservation[2].equals(friday))
+                    reservationX = 819;
 
-                if(finalTime.equals(time[0])) reservationY = 28;
-                else if(finalTime.equals(time[1])) reservationY = 57;
-                else if(finalTime.equals(time[2])) reservationY = 86;
-                else if(finalTime.equals(time[3])) reservationY = 115;
-                else if(finalTime.equals(time[4])) reservationY = 144;
-                else if(finalTime.equals(time[5])) reservationY = 173;
-                else if(finalTime.equals(time[6])) reservationY = 202;
-                else if(finalTime.equals(time[6])) reservationY = 231;
-                else if(finalTime.equals(time[8])) reservationY = 260;
-                else if(finalTime.equals(time[9])) reservationY = 289;
-                else if(finalTime.equals(time[10])) reservationY = 318;
-                else if(finalTime.equals(time[11])) reservationY = 347;
-                else if(finalTime.equals(time[12])) reservationY = 376;
-                else if(finalTime.equals(time[13])) reservationY = 405;
-                else if(finalTime.equals(time[14])) reservationY = 434;
-                else if(finalTime.equals(time[15])) reservationY = 463;
-                else if(finalTime.equals(time[16])) reservationY = 492;
-                else if(finalTime.equals(time[17])) reservationY = 521;
-                
+                if (finalTime.equals(time[0]))
+                    reservationY = 28;
+                else if (finalTime.equals(time[1]))
+                    reservationY = 57;
+                else if (finalTime.equals(time[2]))
+                    reservationY = 86;
+                else if (finalTime.equals(time[3]))
+                    reservationY = 115;
+                else if (finalTime.equals(time[4]))
+                    reservationY = 144;
+                else if (finalTime.equals(time[5]))
+                    reservationY = 173;
+                else if (finalTime.equals(time[6]))
+                    reservationY = 202;
+                else if (finalTime.equals(time[6]))
+                    reservationY = 231;
+                else if (finalTime.equals(time[8]))
+                    reservationY = 260;
+                else if (finalTime.equals(time[9]))
+                    reservationY = 289;
+                else if (finalTime.equals(time[10]))
+                    reservationY = 318;
+                else if (finalTime.equals(time[11]))
+                    reservationY = 347;
+                else if (finalTime.equals(time[12]))
+                    reservationY = 376;
+                else if (finalTime.equals(time[13]))
+                    reservationY = 405;
+                else if (finalTime.equals(time[14]))
+                    reservationY = 434;
+                else if (finalTime.equals(time[15]))
+                    reservationY = 463;
+                else if (finalTime.equals(time[16]))
+                    reservationY = 492;
+                else if (finalTime.equals(time[17]))
+                    reservationY = 521;
+
                 g.setColor(AppColor.TERNARY);
                 g.fillRect(reservationX, reservationY, 191, 28);
                 g.setColor(Color.WHITE);
-                g.drawString(this.reservations.get(i).getPatient().getFirstname() + " " + this.reservations.get(i).getPatient().getLastname(), reservationX + decalX, reservationY + decalY);
-                // System.out.println("X = " + reservationX);
-                // System.out.println("Y = " + reservationY);
-
+                g.drawString(
+                        this.reservations.get(i).getPatient().getFirstname() + " "
+                                + this.reservations.get(i).getPatient().getLastname(),
+                        reservationX + decalX, reservationY + decalY);
             }
         }
-        // String [] reservation =
-        // this.reservations.get(0).getDate().toString().split("-");
-        // System.out.println(reservation[2]);
-        // String test = "" + this.rawWeek.get(1).get(Calendar.DAY_OF_MONTH);
-
-        // if(reservation[2].equals(test)) System.out.println("SUUUUUUUUU");
-        // System.out.println(this.rawWeek.get(1));
-        // System.out.println(this.rawWeek.get(1).get(Calendar.DAY_OF_MONTH));
-        // System.out.println(this.reservations.get(0).getDate());
-
-        // System.out.println(this.time[1].contains("3"));
-
     }
 
     public ArrayList<Calendar> getRawWeek() {
