@@ -9,14 +9,14 @@ import java.sql.Date;
 
 import src.models.Database;
 import src.views.AppFrame;
-import src.views.Schedule;
+import src.views.DoctorSchedule;
 
 public class DateController implements ActionListener {
-    private Schedule schedule;
+    private DoctorSchedule schedule;
     private Database database;
     private ArrayList<Calendar> rawWeek = new ArrayList<Calendar>();
 
-    public DateController(Schedule schedule) {
+    public DateController(DoctorSchedule schedule) {
         this.schedule = schedule;
         this.database = Database.getInstance();
 

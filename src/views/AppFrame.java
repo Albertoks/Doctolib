@@ -65,7 +65,7 @@ public class AppFrame implements Runnable {
         c.gridwidth = 3;
         c.gridx = 0;
         c.gridy = 1;
-        mainFrame.add(new Schedule(user), c);
+        mainFrame.add(new DoctorSchedule(), c);
         //----------------------------------
 
         //---------------------- FOOTER
