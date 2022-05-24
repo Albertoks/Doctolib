@@ -45,7 +45,7 @@ public class Database {
 
     public User login(String login, String password) {
         try {
-            String query = "Selectfrom users where login = ? And password = ?";
+            String query = "Select * from users where login = ? And password = ?";
             stmt = cnx.prepareStatement(query);
             stmt.setString(1, login);
             stmt.setString(2, password);
