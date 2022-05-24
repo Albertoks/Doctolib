@@ -21,6 +21,7 @@ public class CustomButton extends JButton {
     private boolean rounded;
     private Font font;
     private Map attributes;
+    private boolean isSelected;
 
     public CustomButton(String title, Color color, Boolean rounded, Dimension dimension, Boolean isHeader) {
         super(title);
@@ -109,6 +110,7 @@ public class CustomButton extends JButton {
     }
 
     public void setSelected(boolean isSelected) {
+        this.isSelected=isSelected;
         if (isSelected) {
             attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
             this.setFont(font.deriveFont(attributes));
@@ -116,5 +118,8 @@ public class CustomButton extends JButton {
             attributes.put(TextAttribute.UNDERLINE, -1);
             this.setFont(font.deriveFont(attributes));
         }
+    }
+    public boolean getIsSelected(){
+        return this.isSelected;
     }
 }

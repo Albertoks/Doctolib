@@ -17,13 +17,13 @@ public class AppFrame implements Runnable {
     public static ClassLoader loader;
     public static User user;
     public AppFrame() {
-        user = new User("Quintois", "Arnaud", "Arnaud", "arnaud", true);
+        user = new User("Quintois", "Arnaud", "Arnaud", "arnaud", false);
         //user = new User("Quintois", "Arnaud", "Toks", "arnaud", true);
         Login loginPanel = new Login();
         PatientSchedule patientSchedule = new PatientSchedule();
         DoctorReservation doctorReservation = new DoctorReservation();
         
-        Schedule schedule = new Schedule(user);
+        DoctorSchedule schedule = new DoctorSchedule();
 
         Header header = new Header();
         Footer footer = new Footer();
