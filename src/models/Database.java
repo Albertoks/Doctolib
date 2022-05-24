@@ -6,12 +6,15 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import javax.swing.JComboBox;
 
 import src.views.AppFrame;
 
@@ -251,7 +254,7 @@ public class Database {
             stmt = cnx.prepareStatement(query);
             stmt.setString(1, doctor);
             stmt.setString(2, patient);
-            stmt.setDate(3, takenDate);
+            stmt.setString(3, takenDate.toString());
             ResultSet results = stmt.executeQuery();
 
             while (results.next()) {
@@ -262,6 +265,23 @@ public class Database {
             }
 
             return takenReservation;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public Boolean addReservation(String doctor, String patient, Date date, Time time) {
+        try {
+            // Get all reservation taken by this doctor
+            String query = "INSERT INTO `reservations`(`doctor`, `patient`, `date`, `time`) SELECT id, (SELECT id FROM users WHERE login = ?) as doctor, ?, ? FROM users WHERE login = ?";
+            stmt = cnx.prepareStatement(query);
+            stmt.setString(1, doctor);
+            stmt.setDate(2, date);
+            stmt.setTime(3, time);
+            stmt.setString(4, patient);
+
+            return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

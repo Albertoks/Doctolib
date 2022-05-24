@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `firstname` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `lastname` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `admin` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`, `login`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -69,9 +69,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `login`, `password`, `firstname`, `lastname`, `admin`) VALUES
 (1, 'Toks', 'admin', 'Nathan', 'Toko', 1),
-(7, 'Arnaud', 'arnaud', 'Quintois', 'Arnaud', 0),
-(8, 'a', 'a', 'Arnaud', 'Quintois', 1);
-
+(2, 'Naunau', 'a', 'Quintois', 'Arnaud', 0);
 --
 -- Contraintes pour les tables déchargées
 --

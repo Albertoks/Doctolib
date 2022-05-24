@@ -43,9 +43,7 @@ public class AppFrame implements Runnable {
             panel.setMinimumSize(new Dimension(Constants.width, Constants.height));
 
             panel.add(header, BorderLayout.NORTH);
-
             panel.add(newPanel, BorderLayout.CENTER);
-
             panel.add(footer, BorderLayout.SOUTH);
 
             mainFrame.setContentPane(panel);
