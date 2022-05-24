@@ -60,8 +60,7 @@ public class DateController implements ActionListener {
         for (int i = 0; i < 5; i++) {
             Calendar tmpDate = rawWeek.get(i);
             tmpDate.add(Calendar.DATE, 7);
-            this.rawWeek.remove(i);
-            this.rawWeek.add(i, tmpDate);
+            this.rawWeek.set(i, tmpDate);
         }
         this.setWeek(this.rawWeek);
         Date firstDate = new java.sql.Date(this.rawWeek.get(0).getTimeInMillis());
@@ -74,8 +73,7 @@ public class DateController implements ActionListener {
         for (int i = 0; i < 5; i++) {
             Calendar tmpDate = rawWeek.get(i);
             tmpDate.add(Calendar.DATE, -7);
-            this.rawWeek.remove(i);
-            this.rawWeek.add(i, tmpDate);
+            this.rawWeek.set(i, tmpDate);
         }
         this.setWeek(rawWeek);
         Date firstDate = new java.sql.Date(this.rawWeek.get(0).getTimeInMillis());
