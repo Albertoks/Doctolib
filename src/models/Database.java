@@ -126,7 +126,7 @@ public class Database {
 
             while (results.next())
                 reservations.get("old").add(new Reservation(results.getDate("date"), results.getString("time"),
-                        new User(results.getString("firstname"), results.getString("lastname"), null, null, null)));
+                        new User(results.getString("lastname"), results.getString("firstname"), null, null, null)));
 
             // Reservation coming soon
             query = "SELECT date, time, firstname, lastname FROM reservations, users WHERE reservations.doctor = users.id AND reservations.patient = (SELECT id FROM users WHERE login = ?) AND date >= NOW()";
@@ -136,7 +136,7 @@ public class Database {
 
             while (results.next())
                 reservations.get("soon").add(new Reservation(results.getDate("date"), results.getString("time"),
-                        new User(results.getString("firstname"), results.getString("lastname"), null, null, null)));
+                        new User(results.getString("lastname"), results.getString("firstname"), null, null, null)));
 
             return reservations;
 

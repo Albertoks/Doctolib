@@ -1,12 +1,14 @@
 package src.views;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 import src.controllers.DateController;
 import src.models.AppColor;
@@ -15,6 +17,7 @@ import src.models.User;
 import src.models.Reservation;
 
 public class Schedule extends JPanel {
+    
     private User user;
     private ArrayList<Calendar> rawWeek = new ArrayList<Calendar>();
     private String[] week = { null, null, null, null, null };
@@ -26,6 +29,10 @@ public class Schedule extends JPanel {
     private DateController dateController;
 
     public Schedule(User user) {
+        this.setPreferredSize(new Dimension(Constants.width,632));
+        this.setMaximumSize(new Dimension(Constants.width,632));
+
+        this.setBorder(new EmptyBorder(20,30,0,30));
         this.user = user;
         this.dateController = new DateController(this);
 
@@ -46,6 +53,7 @@ public class Schedule extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
         g.setColor(Color.BLACK);
         for (int i = 0; i < 18; i++) {
             g.drawLine(50, 800 / 27 * i + 27, 1010, 800 / 27 * i + 27);
@@ -65,14 +73,25 @@ public class Schedule extends JPanel {
                 int reservationX = 0, reservationY = 0, decalX = 45, decalY = 15;
 
                 String monday = "" + this.rawWeek.get(0).get(Calendar.DAY_OF_MONTH);
+                if (this.rawWeek.get(0).get(Calendar.DAY_OF_MONTH) < 10)
+                    monday = "0" + monday;
                 String thuesday = "" + this.rawWeek.get(1).get(Calendar.DAY_OF_MONTH);
+                if (this.rawWeek.get(1).get(Calendar.DAY_OF_MONTH) < 10)
+                    thuesday = "0" + thuesday;
                 String wenesday = "" + this.rawWeek.get(2).get(Calendar.DAY_OF_MONTH);
+                if (this.rawWeek.get(2).get(Calendar.DAY_OF_MONTH) < 10)
+                    wenesday = "0" + wenesday;
                 String thirsday = "" + this.rawWeek.get(3).get(Calendar.DAY_OF_MONTH);
+                if (this.rawWeek.get(3).get(Calendar.DAY_OF_MONTH) < 10)
+                    thirsday = "0" + thirsday;
                 String friday = "" + this.rawWeek.get(4).get(Calendar.DAY_OF_MONTH);
+                if (this.rawWeek.get(4).get(Calendar.DAY_OF_MONTH) < 10)
+                    friday = "0" + friday;
 
                 String[] reservation = this.reservations.get(i).getDate().toString().split("-");
                 String[] tmpTime = this.reservations.get(i).getTime().split(":");
                 String finalTime = tmpTime[0] + ":" + tmpTime[1];
+                
 
                 if (reservation[2].equals(monday))
                     reservationX = 51;

@@ -16,6 +16,6 @@ public class Footer extends JPanel {
         this.setLayout(new GridBagLayout());
         exitButton = new CustomButton(new ImageIcon("res/logout_ic"), Color.ORANGE, true, new Dimension(60,60));
         this.add(exitButton);
-        this.setBackground(Color.black);
+        this.setBackground(Color.ORANGE);
     }
 }

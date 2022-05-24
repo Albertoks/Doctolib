@@ -1,6 +1,9 @@
 package src.views;
 
 import javax.swing.JPanel;
+
+import src.models.Constants;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -13,6 +16,7 @@ public class Header extends JPanel {
     private Color colorSet;
 
     public Header(){
+        this.setPreferredSize(new Dimension(Constants.width,60));
         colorSet= new Color(0, 152, 229);
         mesRdv = new CustomButton("Mes rendez-vous", colorSet,new Dimension(200,60),false);
 
