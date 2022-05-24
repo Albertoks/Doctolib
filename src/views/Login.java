@@ -21,13 +21,12 @@ public class Login extends JPanel {
     private JButton btnLogin, btnRegister;
     private JLabel title, textlogin, mdp;
     private LoginController loginController;
-    private Color couleur,couleurbtn;
+    private Color couleur;
     private Image image;
 
     public Login() {
 
         this.couleur = new ColorUIResource(0, 152, 229);
-        this.couleurbtn = new ColorUIResource(255, 218, 11 );
         this.image = new ImageIcon("res/logopetit.jpg").getImage();
 
         this.title = new JLabel("Connexion");

@@ -4,10 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import src.views.AppFrame;
-import src.views.DoctorReservation;
+import src.views.Reservation;
 import src.views.DoctorSchedule;
 import src.views.Header;
-import src.views.PatientReservation;
+
 import src.views.PatientSchedule;
 
 public class HeaderController implements ActionListener{
@@ -32,13 +32,7 @@ public class HeaderController implements ActionListener{
 
         } else if (e.getSource() == this.header.getPrendreRdv()) {
             this.header.getMesRdv().setSelected(false);
-            if(AppFrame.user.isAdmin()){
-                if(!this.header.getPrendreRdv().getIsSelected())
-                    AppFrame.setPanel(new DoctorReservation());
-            } else {
-                if(!this.header.getPrendreRdv().getIsSelected())
-                    AppFrame.setPanel(new PatientReservation());
-            }
+            AppFrame.setPanel(new Reservation());
             this.header.getPrendreRdv().setSelected(true);
         }
     }

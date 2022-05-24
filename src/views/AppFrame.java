@@ -1,10 +1,7 @@
 package src.views;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;

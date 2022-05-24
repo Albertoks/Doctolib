@@ -14,10 +14,10 @@ import javax.swing.border.EmptyBorder;
 
 import java.awt.BorderLayout;
 
-import src.controllers.DoctorReservationController;
+import src.controllers.ReservationController;
 import src.models.AppColor;
 import src.models.Constants;
-import src.models.Database;
+
 import src.models.DateLabelFormatter;
 
 import java.awt.Component;
@@ -25,32 +25,32 @@ import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 import org.jdatepicker.impl.JDatePanelImpl;
 
-
-
-public class DoctorReservation extends JPanel{
+public class Reservation extends JPanel {
     private JComboBox<String> jComboBoxPatient;
     private UtilDateModel model;
     private JDatePanelImpl datePanel;
     private JDatePickerImpl datePicker;
     private JComboBox<String> jComboBoxHeure;
-    public DoctorReservation(){
+    private CustomButton reserverButton;
+
+    public Reservation() {
 
         this.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.setPreferredSize(new Dimension(Constants.panelWidth, Constants.panelHeight));
         this.setMaximumSize(new Dimension(Constants.panelWidth, Constants.panelHeight));
-        
 
         this.setLayout(new BorderLayout());
         this.setBackground(Color.BLUE);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BorderLayout());
-        buttonPanel.setPreferredSize(new Dimension(Constants.panelWidth,51));
-        buttonPanel.setMaximumSize(new Dimension(Constants.panelWidth,51));
-        
-        CustomButton reserverButton = new CustomButton("Reserver", AppColor.TERNARY, false, new Dimension(160,30), false);
+        buttonPanel.setPreferredSize(new Dimension(Constants.panelWidth, 51));
+        buttonPanel.setMaximumSize(new Dimension(Constants.panelWidth, 51));
 
-        buttonPanel.add(reserverButton,BorderLayout.EAST);
+        reserverButton = new CustomButton("Reserver", AppColor.TERNARY, false, new Dimension(160, 30),
+                false);
+
+        buttonPanel.add(reserverButton, BorderLayout.EAST);
 
         JPanel panelPatient = new JPanel();
         JPanel panelRdv = new JPanel();
@@ -62,52 +62,55 @@ public class DoctorReservation extends JPanel{
         JPanel containeroptionsHours = new JPanel();
         JPanel containeroptionsDate = new JPanel();
 
-        JLabel labelRdv= new JLabel(" Choisissez la date et l'heure du rendez-vous");
-        JLabel labelPatient= new JLabel(" Choisissez un patient");
-    
-        JLabel textDate= new JLabel("Date");
-        JLabel textHour= new JLabel("Heure");
+        JLabel labelRdv = new JLabel(" Choisissez la date et l'heure du rendez-vous");
+        JLabel labelPatient = new JLabel();
 
+        if (AppFrame.user.isAdmin())
+            labelPatient.setText(" Choisissez un patient");
+        else
+            labelPatient.setText("Choisissez un docteur");
+
+        JLabel textDate = new JLabel("Date");
+        JLabel textHour = new JLabel("Heure");
 
         jComboBoxPatient = new JComboBox<>();
-        DoctorReservationController doctorReservationController = new DoctorReservationController(this);
+        ReservationController doctorReservationController = new ReservationController(this);
+        reserverButton.addActionListener(doctorReservationController);
 
-        
-        Properties properties= new Properties();
-        properties.put("text.day","Day");
-        properties.put("text.month","Month");
-        properties.put("text.year","Year");
+        Properties properties = new Properties();
+        properties.put("text.day", "Day");
+        properties.put("text.month", "Month");
+        properties.put("text.year", "Year");
 
         model = new UtilDateModel();
         datePanel = new JDatePanelImpl(model, properties);
-       
+
         datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 
         jComboBoxHeure = new JComboBox<>();
 
         model.addChangeListener(doctorReservationController);
 
-
         panelRdv.setLayout(new BoxLayout(panelRdv, BoxLayout.Y_AXIS));
-        panelRdv.setPreferredSize(new Dimension(Constants.panelWidth,256));
-        panelRdv.setMaximumSize(new Dimension(Constants.panelWidth,256));
+        panelRdv.setPreferredSize(new Dimension(Constants.panelWidth, 256));
+        panelRdv.setMaximumSize(new Dimension(Constants.panelWidth, 256));
 
         panelRdv.setBackground(Color.WHITE);
-        panelRdv.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
+        panelRdv.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
         containerRdv.setLayout(new BorderLayout());
-        containerRdv.setPreferredSize(new Dimension(Constants.panelWidth,30));
-        containerRdv.setMaximumSize(new Dimension(Constants.panelWidth,30));
+        containerRdv.setPreferredSize(new Dimension(Constants.panelWidth, 30));
+        containerRdv.setMaximumSize(new Dimension(Constants.panelWidth, 30));
 
         containerPatient.setLayout(new BorderLayout());
 
         containeroptionsHours.setLayout(new BorderLayout());
-        containeroptionsHours.setPreferredSize(new Dimension(200,40));
-        containeroptionsHours.setMaximumSize(new Dimension(200,40));
+        containeroptionsHours.setPreferredSize(new Dimension(200, 40));
+        containeroptionsHours.setMaximumSize(new Dimension(200, 40));
 
         containeroptionsDate.setLayout(new BorderLayout());
-        containeroptionsDate.setPreferredSize(new Dimension(200,40));
-        containeroptionsDate.setMaximumSize(new Dimension(200,40));
+        containeroptionsDate.setPreferredSize(new Dimension(200, 40));
+        containeroptionsDate.setMaximumSize(new Dimension(200, 40));
 
         containeroptionsPatient.setLayout(new BorderLayout());
 
@@ -117,58 +120,57 @@ public class DoctorReservation extends JPanel{
         panelRdv.add(containerRdv);
 
         panelRdv.add(Box.createVerticalStrut(30));
-        containeroptionsDate.add(textDate,BorderLayout.NORTH);
-        containeroptionsDate.add(datePicker,BorderLayout.CENTER);
-        
+        containeroptionsDate.add(textDate, BorderLayout.NORTH);
+        containeroptionsDate.add(datePicker, BorderLayout.CENTER);
+
         panelRdv.add(containeroptionsDate);
-        containeroptionsHours.add(textHour,BorderLayout.NORTH);
-        containeroptionsHours.add(jComboBoxHeure,BorderLayout.CENTER);
+        containeroptionsHours.add(textHour, BorderLayout.NORTH);
+        containeroptionsHours.add(jComboBoxHeure, BorderLayout.CENTER);
 
         panelRdv.add(Box.createVerticalStrut(30));
 
         panelRdv.add(containeroptionsHours);
 
-
         panelPatient.setLayout(new BoxLayout(panelPatient, BoxLayout.Y_AXIS));
-        panelPatient.setPreferredSize(new Dimension(Constants.panelWidth,141));
-        panelPatient.setMaximumSize(new Dimension(Constants.panelWidth,141));
+        panelPatient.setPreferredSize(new Dimension(Constants.panelWidth, 141));
+        panelPatient.setMaximumSize(new Dimension(Constants.panelWidth, 141));
 
         panelPatient.setBackground(Color.white);
-        panelPatient.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
+        panelPatient.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
-        containerPatient.setPreferredSize(new Dimension(Constants.panelWidth,50));
-        containerPatient.setMaximumSize(new Dimension(Constants.panelWidth,50));
+        containerPatient.setPreferredSize(new Dimension(Constants.panelWidth, 50));
+        containerPatient.setMaximumSize(new Dimension(Constants.panelWidth, 50));
 
-        containerPatient.add(labelPatient,BorderLayout.NORTH);
-        containerPatient.add(jComboBoxPatient,BorderLayout.CENTER);
+        containerPatient.add(labelPatient, BorderLayout.NORTH);
+        containerPatient.add(jComboBoxPatient, BorderLayout.CENTER);
         containerPatient.setBackground(Color.WHITE);
 
         panelPatient.add(Box.createVerticalStrut(10));
         panelPatient.setBackground(Color.WHITE);
         panelPatient.add(containerPatient);
 
-
         JPanel container = new JPanel();
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
-        container.setPreferredSize(new Dimension(Constants.panelWidth,Constants.panelHeight));
+        container.setPreferredSize(new Dimension(Constants.panelWidth, Constants.panelHeight));
         container.add(Box.createVerticalStrut(54));
         container.add(panelPatient);
         container.add(Box.createVerticalStrut(54));
         container.add(panelRdv);
 
-        
-        this.add(container,BorderLayout.CENTER);
+        this.add(container, BorderLayout.CENTER);
 
-      
-        buttonPanel.setBorder(new EmptyBorder(0,0,21,0));
-        this.add(buttonPanel,BorderLayout.SOUTH);
-        //String selectedFruit = "You selected " + jComboBox.getItemAt(jComboBox.getSelectedIndex()); // code pour récupérer l'option sélectionnée
+        buttonPanel.setBorder(new EmptyBorder(0, 0, 21, 0));
+        this.add(buttonPanel, BorderLayout.SOUTH);
+        // String selectedFruit = "You selected " +
+        // jComboBox.getItemAt(jComboBox.getSelectedIndex()); // code pour récupérer
+        // l'option sélectionnée
 
-    
     }
+
     public JComboBox<String> getjComboBoxPatient() {
         return jComboBoxPatient;
     }
+
     public void setjComboBoxPatient(JComboBox<String> jComboBoxPatient) {
         this.jComboBoxPatient = jComboBoxPatient;
     }
@@ -176,20 +178,24 @@ public class DoctorReservation extends JPanel{
     public JDatePickerImpl getDatePanelImpl() {
         return this.datePicker;
     }
+
     public UtilDateModel getModel() {
         return model;
     }
-    
+
     public JDatePanelImpl getDatePanel() {
         return datePanel;
     }
-    
+
     public JDatePickerImpl getDatePicker() {
         return datePicker;
     }
-    
+
     public JComboBox<String> getjComboBoxHeure() {
         return jComboBoxHeure;
     }
 
+    public CustomButton getReserverButton() {
+        return reserverButton;
+    }
 }

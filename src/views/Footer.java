@@ -2,13 +2,10 @@ package src.views;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridBagLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-
-import java.awt.Insets;
 
 public class Footer extends JPanel {
     private CustomButton exitButton;
