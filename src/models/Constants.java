@@ -17,4 +17,6 @@ public class Constants {
 
     public static final int gapBetweenRDV = 30;
 
+    public static final int panelWidth=957;
+    public static final int panelHeight=590;
 }

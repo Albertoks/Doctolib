@@ -47,4 +47,9 @@ public class User {
     public Boolean isAdmin() {
         return admin;
     }
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return this.firstname+" "+this.lastname;
+    }
 }

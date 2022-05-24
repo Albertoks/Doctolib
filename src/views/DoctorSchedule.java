@@ -1,19 +1,18 @@
 package src.views;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 import src.controllers.DateController;
 import src.models.AppColor;
 import src.models.Constants;
 import src.models.Reservation;
+import java.awt.Dimension;
 
 public class DoctorSchedule extends JPanel {
     private ArrayList<Calendar> rawWeek = new ArrayList<Calendar>();
@@ -26,6 +25,10 @@ public class DoctorSchedule extends JPanel {
     private DateController dateController;
 
     public DoctorSchedule() {
+
+        this.setPreferredSize(new Dimension(Constants.width,Constants.panelHeight));
+        this.setMaximumSize(new Dimension(Constants.width,Constants.panelHeight));
+
         this.dateController = new DateController(this);
 
         int width = 160, height = 30;

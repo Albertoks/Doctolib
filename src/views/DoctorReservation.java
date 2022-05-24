@@ -1,110 +1,172 @@
 package src.views;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.util.Properties;
+
 import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
-import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.BorderLayout;
+
+import src.controllers.DoctorReservationController;
+import src.models.AppColor;
+import src.models.Constants;
+import src.models.Database;
+import src.models.DateLabelFormatter;
+
+import java.awt.Component;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+import org.jdatepicker.impl.JDatePanelImpl;
+
+
 
 public class DoctorReservation extends JPanel{
+    private JComboBox<String> jComboBoxPatient;
     public DoctorReservation(){
-        GridBagConstraints c=new GridBagConstraints();
+
+        this.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.setPreferredSize(new Dimension(Constants.panelWidth, Constants.panelHeight));
+        this.setMaximumSize(new Dimension(Constants.panelWidth, Constants.panelHeight));
+        
+
+        this.setLayout(new BorderLayout());
+        this.setBackground(Color.BLUE);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BorderLayout());
+        buttonPanel.setPreferredSize(new Dimension(Constants.panelWidth,51));
+        buttonPanel.setMaximumSize(new Dimension(Constants.panelWidth,51));
+        
+        CustomButton reserverButton = new CustomButton("Reserver", AppColor.TERNARY, false, new Dimension(160,30), false);
+
+        buttonPanel.add(reserverButton,BorderLayout.EAST);
 
         JPanel panelPatient = new JPanel();
         JPanel panelRdv = new JPanel();
 
-        JLabel labelRdv= new JLabel("Choisissez la date et l'heure du rendez-vous");
-        JLabel labelPatient= new JLabel("Choisissez un patient");
+        JPanel containerRdv = new JPanel();
+        JPanel containerPatient = new JPanel();
 
+        JPanel containeroptionsPatient = new JPanel();
+        JPanel containeroptionsHours = new JPanel();
+        JPanel containeroptionsDate = new JPanel();
+
+        JLabel labelRdv= new JLabel(" Choisissez la date et l'heure du rendez-vous");
+        JLabel labelPatient= new JLabel(" Choisissez un patient");
     
         JLabel textDate= new JLabel("Date");
         JLabel textHour= new JLabel("Heure");
 
-        String[] optionsPatient = {"Dupond", "Tintin", "Milou", "Shanks", "Roronoa"};
-        String[] optionsHours = {"8h00", "8h30", "9h00", "9h30", "10h30"};
-        String[] optionsToDate = {"22/05", "23/05", "24/05", "25/05", "26/05"};
+        String[] optionsPatient={"Dupond", "Tintin", "Milou", "Shanks", "Roronoa"};
+        String[] optionsHours = {""};
 
-        JComboBox<String> jComboBoxPatient = new JComboBox<>(optionsPatient);
-        JComboBox<String> jComboBoxDate = new JComboBox<>(optionsToDate);
+
+        jComboBoxPatient = new JComboBox<>();
+        DoctorReservationController doctorReservationController = new DoctorReservationController(this);
+
+        
+        Properties properties= new Properties();
+        properties.put("text.day","Day");
+        properties.put("text.month","Month");
+        properties.put("text.year","Year");
+
+        UtilDateModel model = new UtilDateModel();
+        JDatePanelImpl datePanel = new JDatePanelImpl(model, properties);
+       
+        JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+
         JComboBox<String> jComboBoxHeure = new JComboBox<>(optionsHours);
 
-        jComboBoxDate.setBounds(80, 50, 140, 20);
 
-        panelRdv.setLayout(new GridBagLayout());
-        panelRdv.setBackground(Color.white);
+        panelRdv.setLayout(new BoxLayout(panelRdv, BoxLayout.Y_AXIS));
+        panelRdv.setPreferredSize(new Dimension(Constants.panelWidth,256));
+        panelRdv.setMaximumSize(new Dimension(Constants.panelWidth,256));
+
+        panelRdv.setBackground(Color.WHITE);
         panelRdv.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
 
-        c.weightx = 1;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 0;
-        panelRdv.add(labelRdv,c);
+        containerRdv.setLayout(new BorderLayout());
+        containerRdv.setPreferredSize(new Dimension(Constants.panelWidth,30));
+        containerRdv.setMaximumSize(new Dimension(Constants.panelWidth,30));
 
-        c.weightx = 0.1;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 1;
-        panelRdv.add(textDate,c);
+        containerPatient.setLayout(new BorderLayout());
 
-        c.weightx = 0.5;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 1;
-        c.gridy = 1;
-        panelRdv.add(jComboBoxDate,c);
+        containeroptionsHours.setLayout(new BorderLayout());
+        containeroptionsHours.setPreferredSize(new Dimension(200,40));
+        containeroptionsHours.setMaximumSize(new Dimension(200,40));
 
-        c.weightx = 0.1;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 2;
-        panelRdv.add(textHour,c);
+        containeroptionsDate.setLayout(new BorderLayout());
+        containeroptionsDate.setPreferredSize(new Dimension(200,40));
+        containeroptionsDate.setMaximumSize(new Dimension(200,40));
 
-        c.weightx = 0.5;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 1;
-        c.gridy = 2;
-        panelRdv.add(jComboBoxHeure,c);
+        containeroptionsPatient.setLayout(new BorderLayout());
+
+        containerRdv.setBackground(Color.WHITE);
+        containerRdv.add(labelRdv);
+
+        panelRdv.add(containerRdv);
+
+        panelRdv.add(Box.createVerticalStrut(30));
+        containeroptionsDate.add(textDate,BorderLayout.NORTH);
+        containeroptionsDate.add(datePicker,BorderLayout.CENTER);
+        
+        panelRdv.add(containeroptionsDate);
+        containeroptionsHours.add(textHour,BorderLayout.NORTH);
+        containeroptionsHours.add(jComboBoxHeure,BorderLayout.CENTER);
+
+        panelRdv.add(Box.createVerticalStrut(30));
+
+        panelRdv.add(containeroptionsHours);
 
 
-        panelPatient.setLayout(new GridBagLayout());
+        panelPatient.setLayout(new BoxLayout(panelPatient, BoxLayout.Y_AXIS));
+        panelPatient.setPreferredSize(new Dimension(Constants.panelWidth,141));
+        panelPatient.setMaximumSize(new Dimension(Constants.panelWidth,141));
+
         panelPatient.setBackground(Color.white);
         panelPatient.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
 
-        c.weightx = 1;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 0;
-        panelPatient.add(labelPatient,c);
+        containerPatient.setPreferredSize(new Dimension(Constants.panelWidth,50));
+        containerPatient.setMaximumSize(new Dimension(Constants.panelWidth,50));
 
-       
-        c.weightx =1;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 1;
-        panelPatient.add(jComboBoxPatient,c);
+        containerPatient.add(labelPatient,BorderLayout.NORTH);
+        containerPatient.add(jComboBoxPatient,BorderLayout.CENTER);
+        containerPatient.setBackground(Color.WHITE);
 
-        this.setLayout(new GridBagLayout());
+        panelPatient.add(Box.createVerticalStrut(10));
+        panelPatient.setBackground(Color.WHITE);
+        panelPatient.add(containerPatient);
+
+
+        JPanel container = new JPanel();
+        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+        container.setPreferredSize(new Dimension(Constants.panelWidth,Constants.panelHeight));
+        container.add(Box.createVerticalStrut(54));
+        container.add(panelPatient);
+        container.add(Box.createVerticalStrut(54));
+        container.add(panelRdv);
+
         
-        c.weightx = 1;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 1;
-        c.insets = new Insets(20,50,0,50);
-        this.add(panelPatient,c);
+        this.add(container,BorderLayout.CENTER);
 
-        c.weightx = 1;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 2;
-        c.ipady = 50;
-        c.insets = new Insets(20,50,0,50);
-        this.add(panelRdv,c);
+      
+        buttonPanel.setBorder(new EmptyBorder(0,0,21,0));
+        this.add(buttonPanel,BorderLayout.SOUTH);
         //String selectedFruit = "You selected " + jComboBox.getItemAt(jComboBox.getSelectedIndex()); // code pour récupérer l'option sélectionnée
-    
 
+    
+    }
+    public JComboBox<String> getjComboBoxPatient() {
+        return jComboBoxPatient;
+    }
+    public void setjComboBoxPatient(JComboBox<String> jComboBoxPatient) {
+        this.jComboBoxPatient = jComboBoxPatient;
     }
 }
