@@ -29,6 +29,10 @@ import org.jdatepicker.impl.JDatePanelImpl;
 
 public class DoctorReservation extends JPanel{
     private JComboBox<String> jComboBoxPatient;
+    private UtilDateModel model;
+    private JDatePanelImpl datePanel;
+    private JDatePickerImpl datePicker;
+    private JComboBox<String> jComboBoxHeure;
     public DoctorReservation(){
 
         this.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -64,9 +68,6 @@ public class DoctorReservation extends JPanel{
         JLabel textDate= new JLabel("Date");
         JLabel textHour= new JLabel("Heure");
 
-        String[] optionsPatient={"Dupond", "Tintin", "Milou", "Shanks", "Roronoa"};
-        String[] optionsHours = {""};
-
 
         jComboBoxPatient = new JComboBox<>();
         DoctorReservationController doctorReservationController = new DoctorReservationController(this);
@@ -77,12 +78,14 @@ public class DoctorReservation extends JPanel{
         properties.put("text.month","Month");
         properties.put("text.year","Year");
 
-        UtilDateModel model = new UtilDateModel();
-        JDatePanelImpl datePanel = new JDatePanelImpl(model, properties);
+        model = new UtilDateModel();
+        datePanel = new JDatePanelImpl(model, properties);
        
-        JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+        datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 
-        JComboBox<String> jComboBoxHeure = new JComboBox<>(optionsHours);
+        jComboBoxHeure = new JComboBox<>();
+
+        model.addChangeListener(doctorReservationController);
 
 
         panelRdv.setLayout(new BoxLayout(panelRdv, BoxLayout.Y_AXIS));
@@ -169,4 +172,24 @@ public class DoctorReservation extends JPanel{
     public void setjComboBoxPatient(JComboBox<String> jComboBoxPatient) {
         this.jComboBoxPatient = jComboBoxPatient;
     }
+
+    public JDatePickerImpl getDatePanelImpl() {
+        return this.datePicker;
+    }
+    public UtilDateModel getModel() {
+        return model;
+    }
+    
+    public JDatePanelImpl getDatePanel() {
+        return datePanel;
+    }
+    
+    public JDatePickerImpl getDatePicker() {
+        return datePicker;
+    }
+    
+    public JComboBox<String> getjComboBoxHeure() {
+        return jComboBoxHeure;
+    }
+
 }

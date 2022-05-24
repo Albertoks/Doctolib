@@ -18,7 +18,7 @@ public class AppFrame implements Runnable {
     public static User user;
 
     public AppFrame() {
-        user = new User("Quintois", "Arnaud", "Naunau", "arnaud", false);
+        user = new User("Quintois", "Arnaud", "Naunau", "arnaud", true);
         Login loginPanel = new Login();
         PatientSchedule patientSchedule = new PatientSchedule();
         DoctorReservation doctorReservation = new DoctorReservation();

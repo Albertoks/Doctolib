@@ -241,6 +241,10 @@ public class Database {
             time = time.plusMinutes(Constants.gapBetweenRDV);
         }
 
+        System.out.println(doctor);
+        System.out.println(patient);
+        System.out.println(takenDate);
+
         try {
             // Get all reservation taken by this doctor
             String query = "SELECT time FROM reservations WHERE (reservations.doctor = (SELECT id FROM users WHERE login = ?) OR reservations.patient = (SELECT id FROM users WHERE login = ?)) AND date = ?";
@@ -251,6 +255,7 @@ public class Database {
             ResultSet results = stmt.executeQuery();
 
             while (results.next()) {
+                System.out.println(results.getTime("time"));
                 LocalTime reservedTime = LocalTime.parse(results.getString("time"));
                 if (takenReservation.contains(reservedTime))
                     takenReservation.remove(reservedTime);
