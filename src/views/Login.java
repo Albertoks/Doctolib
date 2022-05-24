@@ -79,7 +79,8 @@ public class Login extends JPanel {
 
         this.setBackground(this.couleur);
         this.repaint();
-    }
+        this.repaint();   
+     }
 
 
     @Override
