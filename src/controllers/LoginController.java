@@ -10,7 +10,7 @@ import src.models.User;
 import src.views.AppFrame;
 import src.views.Login;
 import src.views.Register;
-import src.views.Schedule;
+import src.views.DoctorSchedule;
 
 public class LoginController implements ActionListener {
     private Login loginPanel;
@@ -30,7 +30,7 @@ public class LoginController implements ActionListener {
                             JOptionPane.ERROR_MESSAGE);
                 else {
                     AppFrame.user = user;
-                    AppFrame.setPanel(new Schedule(user));
+                    AppFrame.setPanel(new DoctorSchedule());
                 }
             else
                 JOptionPane.showMessageDialog(null, "Veuillez remplir les champs avant de valider.", "Erreur champ",

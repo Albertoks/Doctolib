@@ -91,8 +91,8 @@ public class PatientSchedule extends JPanel {
         //listeRdv.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
 
         colorSet = new Color(38, 171, 168);
-        aVenir = new CustomButton("À venir", colorSet,new Dimension(200,40),true);
-        passe = new CustomButton("Passé", Color.WHITE,new Dimension(200,40),true);
+        aVenir = new CustomButton("À venir", colorSet,new Dimension(200,40),false);
+        passe = new CustomButton("Passé", Color.WHITE,new Dimension(200,40),false);
 
 
         GridBagConstraints c=new GridBagConstraints();

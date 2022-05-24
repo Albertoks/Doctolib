@@ -13,12 +13,9 @@ import javax.swing.border.EmptyBorder;
 import src.controllers.DateController;
 import src.models.AppColor;
 import src.models.Constants;
-import src.models.User;
 import src.models.Reservation;
 
-public class Schedule extends JPanel {
-    
-    private User user;
+public class DoctorSchedule extends JPanel {
     private ArrayList<Calendar> rawWeek = new ArrayList<Calendar>();
     private String[] week = { null, null, null, null, null };
     private String[] time = { "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30",
@@ -28,12 +25,7 @@ public class Schedule extends JPanel {
     private JButton semainePre, semaineSuiv;
     private DateController dateController;
 
-    public Schedule(User user) {
-        this.setPreferredSize(new Dimension(Constants.width,632));
-        this.setMaximumSize(new Dimension(Constants.width,632));
-
-        this.setBorder(new EmptyBorder(20,30,0,30));
-        this.user = user;
+    public DoctorSchedule() {
         this.dateController = new DateController(this);
 
         int width = 160, height = 30;
