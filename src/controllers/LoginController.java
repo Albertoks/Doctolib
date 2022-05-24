@@ -9,6 +9,7 @@ import src.models.Database;
 import src.models.User;
 import src.views.AppFrame;
 import src.views.Login;
+import src.views.PatientSchedule;
 import src.views.Register;
 import src.views.DoctorSchedule;
 
@@ -30,7 +31,10 @@ public class LoginController implements ActionListener {
                             JOptionPane.ERROR_MESSAGE);
                 else {
                     AppFrame.user = user;
-                    AppFrame.setPanel(new DoctorSchedule());
+                    if (AppFrame.user.isAdmin())
+                        AppFrame.setPanel(new DoctorSchedule());
+                    else
+                        AppFrame.setPanel(new PatientSchedule());
                 }
             else
                 JOptionPane.showMessageDialog(null, "Veuillez remplir les champs avant de valider.", "Erreur champ",

@@ -3,6 +3,7 @@ package src.views;
 import javax.swing.JPanel;
 
 import src.controllers.HeaderController;
+import src.models.Constants;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,11 +18,14 @@ public class Header extends JPanel {
     private HeaderController headerController;
 
     public Header(){
+        this.setPreferredSize(new Dimension(Constants.width, 80));
+        this.setMinimumSize(new Dimension(Constants.width, 80));
+
         this.headerController = new HeaderController(this);
         colorSet= new Color(0, 152, 229);
-        mesRdv = new CustomButton("Mes rendez-vous", colorSet,new Dimension(200,60),true);
+        mesRdv = new CustomButton("Mes rendez-vous", colorSet,new Dimension(200,80),true);
 
-        prendreRdv = new CustomButton("Prendre rendez-vous", colorSet,new Dimension(200,60),true);
+        prendreRdv = new CustomButton("Prendre rendez-vous", colorSet,new Dimension(200,80),true);
 
         mesRdv.setSelected(true);
         mesRdv.addActionListener(this.headerController);
