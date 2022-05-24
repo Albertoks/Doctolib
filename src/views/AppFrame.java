@@ -19,7 +19,6 @@ public class AppFrame implements Runnable {
     private static Footer footer;
 
     public AppFrame() {
-        user = new User("Quintois", "Arnaud", "Naunau", "arnaud", true);
         Login loginPanel = new Login();
         header = new Header();
         footer = new Footer();

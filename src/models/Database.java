@@ -274,12 +274,12 @@ public class Database {
     public Boolean addReservation(String doctor, String patient, Date date, Time time) {
         try {
             // Get all reservation taken by this doctor
-            String query = "INSERT INTO `reservations`(`doctor`, `patient`, `date`, `time`) SELECT id, (SELECT id FROM users WHERE login = ?) as doctor, ?, ? FROM users WHERE login = ?";
+            String query = "INSERT INTO `reservations`(`doctor`, `patient`, `date`, `time`) SELECT id, (SELECT id FROM users WHERE login = ?) as patient, ?, ? FROM users WHERE login = ?";
             stmt = cnx.prepareStatement(query);
-            stmt.setString(1, doctor);
+            stmt.setString(1, patient);
             stmt.setDate(2, date);
             stmt.setTime(3, time);
-            stmt.setString(4, patient);
+            stmt.setString(4, doctor);
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
