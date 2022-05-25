@@ -23,6 +23,18 @@ public class PatientScheduleController implements ActionListener {
         this.soon=map.get("soon");
     }
 
+    public void loadSchedule(){
+        this.patientSchedule.setPage(1);
+        this.patientSchedule.cleanListeRDV();
+        if(this.soon.size()>0){
+            this.patientSchedule.afficherRDV( this.soon);
+        }
+        this.patientSchedule.getaVenir().setBackground(AppColor.TERNARY);
+        this.patientSchedule.getPasse().setBackground(Color.WHITE);
+        this.patientSchedule.setOld(false);
+        this.patientSchedule.getaVenir().setForeground(Color.white);
+        this.patientSchedule.getPasse().setForeground(Color.BLACK);
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==this.patientSchedule.getaVenir()){

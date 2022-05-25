@@ -52,6 +52,7 @@ public class ReservationController implements ChangeListener, ActionListener {
             this.time = database.getAvailableReservation(AppFrame.user.getLogin(),
                     patient,
                     Date.valueOf(date1));
+            
             for (int i = 0; i < this.time.size(); i++) {
                 this.doctorReservation.getjComboBoxHeure().insertItemAt(time.get(i).toString(), i);
             }

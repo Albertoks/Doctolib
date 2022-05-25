@@ -2,6 +2,7 @@ package src.views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -13,10 +14,8 @@ import java.util.Locale;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
 import src.controllers.PatientScheduleController;
@@ -34,7 +33,7 @@ public class PatientSchedule extends JPanel {
     private PatientScheduleController patientScheduleController;
 
     private JPanel footerPanel, paginationPanel;
-    private JButton previous, next;
+    private CustomButton previous, next;
     private JLabel currentPage;
 
     private int page;
@@ -52,23 +51,24 @@ public class PatientSchedule extends JPanel {
         page=1;
         paginationPanel.setLayout(new GridBagLayout());
         isOld=false;
-        this.setPreferredSize(new Dimension(Constants.width,632));
+        this.setPreferredSize(new Dimension(Constants.panelWidth,Constants.panelHeight));
+        this.setMinimumSize(new Dimension(Constants.panelWidth,Constants.panelHeight));
 
 
         listeRdv = new JPanel();
-        listeRdv.setPreferredSize(new Dimension(957,590));
-        listeRdv.setMaximumSize(new Dimension(957,590));
+        listeRdv.setPreferredSize(new Dimension(Constants.panelWidth,590));
+        listeRdv.setMaximumSize(new Dimension(Constants.panelWidth,590));
 
-        this.previous= new JButton("<");
-        this.next= new JButton(">");
+        this.previous=  new CustomButton("<", Color.WHITE, false, new Dimension(40,30), false);
+        this.next= new CustomButton(">", Color.WHITE, false, new Dimension(40,30), false);
         this.currentPage= new JLabel("");
 
         paginationPanel.add(currentPage);
         paginationPanel.setBackground(Color.WHITE);
         this.previous.setEnabled(false);
 
-        this.previous.setFocusPainted(false);
-        this.next.setFocusPainted(false);
+        //this.previous.setFocusPainted(false);
+        //this.next.setFocusPainted(false);
 
 
         this.footerPanel.setLayout(new BorderLayout());
@@ -86,7 +86,8 @@ public class PatientSchedule extends JPanel {
         this.setBackground(Color.WHITE);
         listeRdv.setBackground(Color.WHITE);
 
-        this.setBorder(new CompoundBorder(new EmptyBorder(10,50,0,50),BorderFactory.createLineBorder(Color.BLACK,1)));
+        this.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
+        this.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         //listeRdv.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
 
@@ -119,6 +120,8 @@ public class PatientSchedule extends JPanel {
         passe.addActionListener(this.patientScheduleController);
         previous.addActionListener(patientScheduleController);
         next.addActionListener(patientScheduleController);
+
+        this.patientScheduleController.loadSchedule();
     }
 
     public void afficherRDV(ArrayList<Reservation> liste){
@@ -138,9 +141,9 @@ public class PatientSchedule extends JPanel {
         }
         else{
             this.next.setEnabled(false);
-            currentNbReservation=Math.abs(liste.size()-4);
+            currentNbReservation=liste.size()>4? Math.abs(liste.size()-4): liste.size();
         }
-           
+        
         if(this.hasPrevious())
             this.previous.setEnabled(true);
         else
@@ -219,12 +222,9 @@ public class PatientSchedule extends JPanel {
 
         this.listeRdv.add(footerPanel);
         footerPanel.setBorder(new EmptyBorder(21 + (108* (4-currentNbReservation)),0,0,0));
-       // System.out.println(21 + (108* (4-max)));
         footerPanel.setBackground(Color.WHITE);
         listeRdv.setBackground(Color.WHITE);
 
-        //footerPanel.setBorder(new EmptyBorder(0,500,50,0));
-        //this.add(footerPanel,BorderLayout.SOUTH);
         this.add(listeRdv,BorderLayout.CENTER);
         
     }
@@ -250,19 +250,19 @@ public class PatientSchedule extends JPanel {
         this.passe = passe;
     }
 
-    public JButton getPrevious() {
+    public CustomButton getPrevious() {
         return previous;
     }
 
-    public void setPrevious(JButton previous) {
+    public void setPrevious(CustomButton previous) {
         this.previous = previous;
     }
 
-    public JButton getNext() {
+    public CustomButton getNext() {
         return next;
     }
 
-    public void setNext(JButton next) {
+    public void setNext(CustomButton next) {
         this.next = next;
     }
     public void setPage(int page) {

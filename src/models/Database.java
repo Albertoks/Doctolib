@@ -14,8 +14,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.swing.JComboBox;
-
 import src.views.AppFrame;
 
 public class Database {
@@ -218,7 +216,6 @@ public class Database {
 
             // Remove already taken reservation
             for (Reservation reservation : takenReservation) {
-                // System.out.println(reservation.getDate() + " " + reservation.getTime());
                 availableReservations.get(LocalDate.parse(reservation.getDate().toString()))
                         .remove(LocalTime.parse(reservation.getTime(), DateTimeFormatter.ISO_TIME));
             }
@@ -233,6 +230,9 @@ public class Database {
     public ArrayList<LocalTime> getAvailableReservation(String doctor, String patient, Date takenDate) {
         ArrayList<LocalTime> takenReservation = new ArrayList<LocalTime>();
 
+        if (takenDate.compareTo(Date.valueOf(LocalDate.now())) < 0 || LocalDate.parse(takenDate.toString()).getDayOfWeek() == DayOfWeek.SATURDAY || LocalDate.parse(takenDate.toString()).getDayOfWeek() == DayOfWeek.SUNDAY)
+            return takenReservation;
+
         LocalTime time = LocalTime.of(Constants.startHour, Constants.startMinute);
 
         if (takenDate.compareTo(Date.valueOf(LocalDate.now())) == 0)
@@ -244,9 +244,6 @@ public class Database {
             time = time.plusMinutes(Constants.gapBetweenRDV);
         }
 
-        System.out.println(doctor);
-        System.out.println(patient);
-        System.out.println(takenDate);
 
         try {
             // Get all reservation taken by this doctor
@@ -258,7 +255,6 @@ public class Database {
             ResultSet results = stmt.executeQuery();
 
             while (results.next()) {
-                System.out.println(results.getTime("time"));
                 LocalTime reservedTime = LocalTime.parse(results.getString("time"));
                 if (takenReservation.contains(reservedTime))
                     takenReservation.remove(reservedTime);

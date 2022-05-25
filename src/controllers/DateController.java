@@ -130,7 +130,7 @@ public class DateController implements ActionListener {
                 month = " Décembre";
 
             week[i] = day + rawWeek.get(i).get(Calendar.DAY_OF_MONTH) + month + " "+ rawWeek.get(i).get(Calendar.YEAR);
-            // System.out.println(day + rawWeek.get(i).get(Calendar.DAY_OF_MONTH) + month);
+    
             schedule.setWeek(week);
             schedule.setRawWeek(rawWeek);
 

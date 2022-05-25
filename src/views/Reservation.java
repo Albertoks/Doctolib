@@ -49,6 +49,7 @@ public class Reservation extends JPanel {
 
         reserverButton = new CustomButton("Reserver", AppColor.TERNARY, false, new Dimension(160, 30),
                 false);
+        reserverButton.setForeground(Color.WHITE);
 
         buttonPanel.add(reserverButton, BorderLayout.EAST);
 
@@ -146,6 +147,7 @@ public class Reservation extends JPanel {
         containerPatient.setBackground(Color.WHITE);
 
         panelPatient.add(Box.createVerticalStrut(10));
+
         panelPatient.setBackground(Color.WHITE);
         panelPatient.add(containerPatient);
 
@@ -161,9 +163,6 @@ public class Reservation extends JPanel {
 
         buttonPanel.setBorder(new EmptyBorder(0, 0, 21, 0));
         this.add(buttonPanel, BorderLayout.SOUTH);
-        // String selectedFruit = "You selected " +
-        // jComboBox.getItemAt(jComboBox.getSelectedIndex()); // code pour récupérer
-        // l'option sélectionnée
 
     }
 
@@ -193,6 +192,10 @@ public class Reservation extends JPanel {
 
     public JComboBox<String> getjComboBoxHeure() {
         return jComboBoxHeure;
+    }
+    public void setjComboBoxHeure(JComboBox<String> jComboBoxHeure) {
+        this.jComboBoxHeure = jComboBoxHeure;
+        this.revalidate();
     }
 
     public CustomButton getReserverButton() {

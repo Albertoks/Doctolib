@@ -1,18 +1,17 @@
 package src.views;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import src.controllers.DateController;
 import src.models.AppColor;
 import src.models.Constants;
 import src.models.Reservation;
-import java.awt.Dimension;
 
 public class DoctorSchedule extends JPanel {
     private ArrayList<Calendar> rawWeek = new ArrayList<Calendar>();
@@ -21,7 +20,7 @@ public class DoctorSchedule extends JPanel {
             "13:00",
             "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30" };
     private ArrayList<Reservation> reservations = new ArrayList<Reservation>();
-    private JButton semainePre, semaineSuiv;
+    private CustomButton semainePre, semaineSuiv;
     private DateController dateController;
 
     public DoctorSchedule() {
@@ -34,12 +33,12 @@ public class DoctorSchedule extends JPanel {
         int width = 160, height = 30;
         this.setLayout(null);
 
-        this.semainePre = new JButton("< Semaine pré.");
+        this.semainePre = new CustomButton("< Semaine pré.", Color.WHITE,false, new Dimension(width,height),false);
         this.semainePre.setBounds(660, 550, width, height);
         this.semainePre.addActionListener(this.dateController);
         this.add(semainePre);
 
-        this.semaineSuiv = new JButton("Semaine suiv. >");
+        this.semaineSuiv = new CustomButton("Semaine suiv. >", Color.WHITE,false, new Dimension(width,height),false);
         this.semaineSuiv.setBounds(850, 550, width, height);
         this.semaineSuiv.addActionListener(this.dateController);
         this.add(semaineSuiv);
@@ -155,11 +154,11 @@ public class DoctorSchedule extends JPanel {
         this.rawWeek = week;
     }
 
-    public JButton getSemainePre() {
+    public CustomButton getSemainePre() {
         return semainePre;
     }
 
-    public JButton getSemaineSuiv() {
+    public CustomButton getSemaineSuiv() {
         return semaineSuiv;
     }
 

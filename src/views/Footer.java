@@ -19,7 +19,7 @@ public class Footer extends JPanel {
 
         this.footerController = new FooterController(this);
        
-        this.exitButton = new CustomButton(new ImageIcon("res/deco.jpg"), Color.ORANGE, true, new Dimension(60,60)); 
+        this.exitButton = new CustomButton(new ImageIcon("res/logout_ic.png"), Color.ORANGE, true, new Dimension(60,60)); 
         this.exitButton.addActionListener(this.footerController);
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS ));
         
