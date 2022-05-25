@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -52,7 +53,11 @@ public class ReservationController implements ChangeListener, ActionListener {
             this.time = database.getAvailableReservation(AppFrame.user.getLogin(),
                     patient,
                     Date.valueOf(date1));
-            
+
+            DefaultComboBoxModel<String> comboBoxModel = (DefaultComboBoxModel<String>) this.doctorReservation
+                    .getjComboBoxHeure().getModel();
+            comboBoxModel.removeAllElements();
+
             for (int i = 0; i < this.time.size(); i++) {
                 this.doctorReservation.getjComboBoxHeure().insertItemAt(time.get(i).toString(), i);
             }
@@ -85,6 +90,7 @@ public class ReservationController implements ChangeListener, ActionListener {
                             JOptionPane.INFORMATION_MESSAGE);
                     this.doctorReservation.getjComboBoxPatient().setSelectedItem(null);
                     this.doctorReservation.getjComboBoxHeure().setSelectedItem(null);
+                    this.doctorReservation.getDatePicker().getJFormattedTextField().setText("");
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Veuillez remplir les champs avant de réserver.", "Erreur champ",
