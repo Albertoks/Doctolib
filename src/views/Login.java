@@ -25,7 +25,6 @@ public class Login extends JPanel {
     private Image image;
 
     public Login() {
-
         this.couleur = new ColorUIResource(0, 152, 229);
         this.image = new ImageIcon("res/logopetit.jpg").getImage();
 
@@ -37,20 +36,18 @@ public class Login extends JPanel {
         this.password = new JPasswordField(10);
         this.mdp = new JLabel("Mot de Passe");
 
-        this.btnLogin = new CustomButton("Se connecter", new Color(38, 171, 168),new Dimension(200,40),false);
+        this.btnLogin = new CustomButton("Se connecter", new Color(38, 171, 168), new Dimension(200, 40), false);
         this.btnRegister = new JButton("S'inscrire");
 
-
-       
         this.setLayout(null);
 
         int x = 490, y = 180, height = 25, width = 100;
         int xbarre = 400, widthbarre = 250;
-        this.title.setBounds(x , y, 75, height);
+        this.title.setBounds(x, y, 75, height);
         // this.title.setSize(60,60);
 
-        this.textlogin.setBounds(x+5, y+50, width, height);
-        this.login.setBounds(xbarre, y+80, widthbarre, height);
+        this.textlogin.setBounds(x + 5, y + 50, width, height);
+        this.login.setBounds(xbarre, y + 80, widthbarre, height);
 
         this.mdp.setBounds(x, y + 125, width, height);
         this.password.setBounds(xbarre, y + 155, widthbarre, height);
@@ -76,12 +73,12 @@ public class Login extends JPanel {
 
         this.btnRegister.addActionListener(this.loginController);
         this.btnLogin.addActionListener(this.loginController);
+        AppFrame.mainFrame.getRootPane().setDefaultButton(this.btnLogin);
 
         this.setBackground(this.couleur);
         this.repaint();
-        this.repaint();   
-     }
-
+        this.repaint();
+    }
 
     @Override
     public void paintComponent(Graphics g) {

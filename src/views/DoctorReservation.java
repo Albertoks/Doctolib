@@ -14,7 +14,7 @@ import javax.swing.border.EmptyBorder;
 
 import java.awt.BorderLayout;
 
-import src.controllers.ReservationController;
+import src.controllers.DoctorReservationController;
 import src.models.AppColor;
 import src.models.Constants;
 
@@ -25,7 +25,7 @@ import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 import org.jdatepicker.impl.JDatePanelImpl;
 
-public class Reservation extends JPanel {
+public class DoctorReservation extends JPanel {
     private JComboBox<String> jComboBoxPatient;
     private UtilDateModel model;
     private JDatePanelImpl datePanel;
@@ -33,7 +33,7 @@ public class Reservation extends JPanel {
     private JComboBox<String> jComboBoxHeure;
     private CustomButton reserverButton;
 
-    public Reservation() {
+    public DoctorReservation() {
 
         this.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.setPreferredSize(new Dimension(Constants.panelWidth, Constants.panelHeight));
@@ -47,8 +47,7 @@ public class Reservation extends JPanel {
         buttonPanel.setPreferredSize(new Dimension(Constants.panelWidth, 51));
         buttonPanel.setMaximumSize(new Dimension(Constants.panelWidth, 51));
 
-        reserverButton = new CustomButton("Reserver", AppColor.TERNARY, false, new Dimension(160, 30),
-                false);
+        reserverButton = new CustomButton("Reserver", AppColor.TERNARY, new Dimension(160, 30));
         reserverButton.setForeground(Color.WHITE);
 
         buttonPanel.add(reserverButton, BorderLayout.EAST);
@@ -67,7 +66,7 @@ public class Reservation extends JPanel {
         JLabel labelPatient = new JLabel();
 
         if (AppFrame.user.isAdmin())
-            labelPatient.setText(" Choisissez un patient");
+            labelPatient.setText("Choisissez un patient");
         else
             labelPatient.setText("Choisissez un docteur");
 
@@ -75,8 +74,9 @@ public class Reservation extends JPanel {
         JLabel textHour = new JLabel("Heure");
 
         jComboBoxPatient = new JComboBox<>();
-        ReservationController doctorReservationController = new ReservationController(this);
+        DoctorReservationController doctorReservationController = new DoctorReservationController(this);
         reserverButton.addActionListener(doctorReservationController);
+        AppFrame.mainFrame.getRootPane().setDefaultButton(this.reserverButton);
 
         Properties properties = new Properties();
         properties.put("text.day", "Day");
@@ -193,6 +193,7 @@ public class Reservation extends JPanel {
     public JComboBox<String> getjComboBoxHeure() {
         return jComboBoxHeure;
     }
+
     public void setjComboBoxHeure(JComboBox<String> jComboBoxHeure) {
         this.jComboBoxHeure = jComboBoxHeure;
         this.revalidate();

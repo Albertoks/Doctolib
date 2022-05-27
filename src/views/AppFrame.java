@@ -30,7 +30,6 @@ public class AppFrame implements Runnable {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setResizable(false);
         mainFrame.add(loginPanel);
-
     }
 
     public static void setPanel(JPanel newPanel) {

@@ -18,16 +18,16 @@ import java.awt.font.TextAttribute;
 public class CustomButton extends JButton {
     private int radius;
     private boolean isHeader;
-    private boolean rounded;
     private Font font;
     private Map attributes;
     private boolean isSelected;
+    private Color color;
 
-    public CustomButton(String title, Color color, Boolean rounded, Dimension dimension, Boolean isHeader) {
+    public CustomButton(String title, Color color, Dimension dimension, int radius, Boolean isHeader) {
         super(title);
-        this.radius = rounded ? 100 : 0;
+        this.radius = radius;
         this.isHeader = isHeader;
-        this.rounded = rounded;
+        this.color = color;
         this.setHorizontalAlignment(SwingConstants.CENTER);
         this.setHorizontalTextPosition(SwingConstants.CENTER);
         this.setPreferredSize(dimension);
@@ -45,40 +45,46 @@ public class CustomButton extends JButton {
 
         this.setFocusPainted(false);
 
-        if (rounded) {
-            Dimension size = getPreferredSize();
-            size.width = size.height = Math.max(size.width, size.height);
-            setPreferredSize(size);
+        if (this.isRounded())
             setContentAreaFilled(false);
-        }
 
+    }
+
+    public CustomButton(String title, Color color, Dimension dimension) {
+        this(title, color, dimension, 0, false);
+    }
+
+    public CustomButton(String title, Color color, Dimension dimension, int radius) {
+        this(title, color, dimension, radius, false);
     }
 
     public CustomButton(String title, Color color, Dimension dimension, Boolean isHeader) {
-        this(title, color, false, dimension, isHeader);
+        this(title, color, dimension, 0, isHeader);
     }
 
-    public CustomButton(ImageIcon icon, Color color, Boolean rounded, Dimension dimension) {
+    public CustomButton(ImageIcon icon, Color color, Dimension dimension, int radius) {
         super(icon);
-        this.rounded=rounded;
-        this.radius = rounded ? 100 : 0;
+        this.radius = radius;
         this.setHorizontalAlignment(SwingConstants.CENTER);
         this.setHorizontalTextPosition(SwingConstants.CENTER);
         this.setPreferredSize(dimension);
         this.setBackground(color);
 
-        if (rounded) {
-            Dimension size = getPreferredSize();
-            size.width = size.height = Math.max(size.width, size.height);
-            setPreferredSize(size);
-            setContentAreaFilled(false);
-        }
+        if (this.isRounded())
+            this.setRounded();
+    }
+
+    private void setRounded() {
+        Dimension size = getPreferredSize();
+        size.width = size.height = Math.max(size.width, size.height);
+        setPreferredSize(size);
+        setContentAreaFilled(false);
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         g.setColor(getBackground());
-        if (!rounded) {
+        if (!this.isRounded()) {
             if (getModel().isRollover()) {
                 if (!isHeader) {
                     this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
@@ -90,14 +96,14 @@ public class CustomButton extends JButton {
                 }
                 setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
-        
-        }else{
-            g.setColor(Color.ORANGE);
+
+        } else {
+            g.setColor(color);
             g.fillRoundRect(0, 0, getSize().width - 1, getSize().height - 1, this.radius,
-            this.radius);
+                    this.radius);
             if (getModel().isRollover()) {
                 setCursor(new Cursor(Cursor.HAND_CURSOR));
-            }else{
+            } else {
                 setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
 
@@ -109,7 +115,7 @@ public class CustomButton extends JButton {
     protected void paintBorder(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(Color.black);
-        if(!rounded){
+        if (!this.isRounded()) {
             if (getModel().isRollover()) {
                 g2.setStroke(new BasicStroke(2));
             } else {
@@ -120,14 +126,14 @@ public class CustomButton extends JButton {
         }
 
         g2.setColor(Color.WHITE);
-        if(rounded){
+        if (this.isRounded()) {
             g2.drawRoundRect(0, 0, getSize().width, getSize().height, this.radius, this.radius);
         }
-            
+
     }
 
     public void setSelected(boolean isSelected) {
-        this.isSelected=isSelected;
+        this.isSelected = isSelected;
         if (isSelected) {
             attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
             this.setFont(font.deriveFont(attributes));
@@ -136,16 +142,12 @@ public class CustomButton extends JButton {
             this.setFont(font.deriveFont(attributes));
         }
     }
-    public boolean getIsSelected(){
+
+    public boolean getIsSelected() {
         return this.isSelected;
     }
 
     public boolean isRounded() {
-        return rounded;
+        return this.radius != 0;
     }
-
-    public void setRounded(boolean rounded) {
-        this.rounded = rounded;
-    }
-    
 }

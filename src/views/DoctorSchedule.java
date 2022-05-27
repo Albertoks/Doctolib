@@ -25,20 +25,20 @@ public class DoctorSchedule extends JPanel {
 
     public DoctorSchedule() {
 
-        this.setPreferredSize(new Dimension(Constants.width,Constants.panelHeight));
-        this.setMaximumSize(new Dimension(Constants.width,Constants.panelHeight));
+        this.setPreferredSize(new Dimension(Constants.width, Constants.panelHeight));
+        this.setMaximumSize(new Dimension(Constants.width, Constants.panelHeight));
 
         this.dateController = new DateController(this);
 
         int width = 160, height = 30;
         this.setLayout(null);
 
-        this.semainePre = new CustomButton("< Semaine pré.", Color.WHITE,false, new Dimension(width,height),false);
+        this.semainePre = new CustomButton("< Semaine pré.", Color.WHITE, new Dimension(width, height));
         this.semainePre.setBounds(660, 550, width, height);
         this.semainePre.addActionListener(this.dateController);
         this.add(semainePre);
 
-        this.semaineSuiv = new CustomButton("Semaine suiv. >", Color.WHITE,false, new Dimension(width,height),false);
+        this.semaineSuiv = new CustomButton("Semaine suiv. >", Color.WHITE, new Dimension(width, height));
         this.semaineSuiv.setBounds(850, 550, width, height);
         this.semaineSuiv.addActionListener(this.dateController);
         this.add(semaineSuiv);
@@ -85,7 +85,6 @@ public class DoctorSchedule extends JPanel {
                 String[] reservation = this.reservations.get(i).getDate().toString().split("-");
                 String[] tmpTime = this.reservations.get(i).getTime().split(":");
                 String finalTime = tmpTime[0] + ":" + tmpTime[1];
-                
 
                 if (reservation[2].equals(monday))
                     reservationX = 51;

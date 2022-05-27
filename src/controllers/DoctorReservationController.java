@@ -16,15 +16,15 @@ import javax.swing.event.ChangeListener;
 import src.models.Database;
 import src.models.User;
 import src.views.AppFrame;
-import src.views.Reservation;
+import src.views.DoctorReservation;
 
-public class ReservationController implements ChangeListener, ActionListener {
-    private Reservation doctorReservation;
+public class DoctorReservationController implements ChangeListener, ActionListener {
+    private DoctorReservation doctorReservation;
     private Database database;
     private ArrayList<User> users;
     private ArrayList<LocalTime> time;
 
-    public ReservationController(Reservation doctorReservation) {
+    public DoctorReservationController(DoctorReservation doctorReservation) {
         database = Database.getInstance();
         if (AppFrame.user.isAdmin())
             users = database.getPatients();

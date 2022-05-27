@@ -49,15 +49,15 @@ public class Register extends JPanel {
         int x = 490, y = 180, height = 25, width = 100;
         int xbarre = 400, widthbarre = 250;
 
-        this.title.setBounds(x , y, 75, height);
+        this.title.setBounds(x, y, 75, height);
 
-        this.prenom.setBounds(x+5, y+50, width, height);
-        this.firstname.setBounds(xbarre, y+80, widthbarre, height);
+        this.prenom.setBounds(x + 5, y + 50, width, height);
+        this.firstname.setBounds(xbarre, y + 80, widthbarre, height);
 
-        this.nom.setBounds(x+10, y + 125, width, height);
+        this.nom.setBounds(x + 10, y + 125, width, height);
         this.lastname.setBounds(xbarre, y + 155, widthbarre, height);
 
-        this.textlogin.setBounds(x+5, y + 200, width, height);
+        this.textlogin.setBounds(x + 5, y + 200, width, height);
         this.login.setBounds(xbarre, y + 230, widthbarre, height);
 
         this.mdp.setBounds(x, y + 275, width, height);
@@ -92,6 +92,7 @@ public class Register extends JPanel {
         this.btnRegister.addActionListener(this.registerController);
         this.btnLogin.addActionListener(this.registerController);
 
+        AppFrame.mainFrame.getRootPane().setDefaultButton(this.btnRegister);
     }
 
     @Override

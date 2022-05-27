@@ -13,6 +13,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import src.views.AppFrame;
 
@@ -160,8 +161,8 @@ public class Database {
     }
 
     public HashMap<LocalDate, ArrayList<LocalTime>> getAvailableReservation(String doctor, String patient,
-            int diffWeek) {
-        HashMap<LocalDate, ArrayList<LocalTime>> availableReservations = new HashMap<LocalDate, ArrayList<LocalTime>>();
+            long diffWeek) {
+        HashMap<LocalDate, ArrayList<LocalTime>> availableReservations = new LinkedHashMap<LocalDate, ArrayList<LocalTime>>();
         ArrayList<Reservation> takenReservation = new ArrayList<Reservation>();
 
         LocalDate currentTabDate = LocalDate.now().plusWeeks(diffWeek);
@@ -202,7 +203,7 @@ public class Database {
 
         try {
             // Get all reservation taken by this doctor
-            String query = "SELECT date, time FROM reservations WHERE (reservations.doctor = (SELECT id FROM users WHERE login = ?) OR reservations.patient = (SELECT id FROM users WHERE login = ?)) AND date > ? AND date <= ?";
+            String query = "SELECT date, time FROM reservations WHERE (reservations.doctor = (SELECT id FROM users WHERE login = ?) OR reservations.patient = (SELECT id FROM users WHERE login = ?)) AND date >= ? AND date <= ?";
             stmt = cnx.prepareStatement(query);
             stmt.setString(1, doctor);
             stmt.setString(2, patient);
@@ -230,7 +231,9 @@ public class Database {
     public ArrayList<LocalTime> getAvailableReservation(String doctor, String patient, Date takenDate) {
         ArrayList<LocalTime> takenReservation = new ArrayList<LocalTime>();
 
-        if (takenDate.compareTo(Date.valueOf(LocalDate.now())) < 0 || LocalDate.parse(takenDate.toString()).getDayOfWeek() == DayOfWeek.SATURDAY || LocalDate.parse(takenDate.toString()).getDayOfWeek() == DayOfWeek.SUNDAY)
+        if (takenDate.compareTo(Date.valueOf(LocalDate.now())) < 0
+                || LocalDate.parse(takenDate.toString()).getDayOfWeek() == DayOfWeek.SATURDAY
+                || LocalDate.parse(takenDate.toString()).getDayOfWeek() == DayOfWeek.SUNDAY)
             return takenReservation;
 
         LocalTime time = LocalTime.of(Constants.startHour, Constants.startMinute);
@@ -243,7 +246,6 @@ public class Database {
             takenReservation.add(time);
             time = time.plusMinutes(Constants.gapBetweenRDV);
         }
-
 
         try {
             // Get all reservation taken by this doctor

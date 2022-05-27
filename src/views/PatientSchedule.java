@@ -23,7 +23,6 @@ import src.models.AppColor;
 import src.models.Constants;
 import src.models.Reservation;
 
-
 public class PatientSchedule extends JPanel {
 
     private CustomButton aVenir;
@@ -45,75 +44,64 @@ public class PatientSchedule extends JPanel {
 
     public PatientSchedule() {
 
-        footerPanel= new JPanel();
-        paginationPanel= new JPanel();
-        currentMax=1;
-        page=1;
+        footerPanel = new JPanel();
+        paginationPanel = new JPanel();
+        currentMax = 1;
+        page = 1;
         paginationPanel.setLayout(new GridBagLayout());
-        isOld=false;
-        this.setPreferredSize(new Dimension(Constants.panelWidth,Constants.panelHeight));
-        this.setMinimumSize(new Dimension(Constants.panelWidth,Constants.panelHeight));
-
+        isOld = false;
+        this.setPreferredSize(new Dimension(Constants.panelWidth, Constants.panelHeight));
+        this.setMinimumSize(new Dimension(Constants.panelWidth, Constants.panelHeight));
 
         listeRdv = new JPanel();
-        listeRdv.setPreferredSize(new Dimension(Constants.panelWidth,590));
-        listeRdv.setMaximumSize(new Dimension(Constants.panelWidth,590));
+        listeRdv.setPreferredSize(new Dimension(Constants.panelWidth, 590));
+        listeRdv.setMaximumSize(new Dimension(Constants.panelWidth, 590));
 
-        this.previous=  new CustomButton("<", Color.WHITE, false, new Dimension(40,30), false);
-        this.next= new CustomButton(">", Color.WHITE, false, new Dimension(40,30), false);
-        this.currentPage= new JLabel("");
+        this.previous = new CustomButton("<", Color.WHITE, new Dimension(40, 30));
+        this.next = new CustomButton(">", Color.WHITE, new Dimension(40, 30));
+        this.currentPage = new JLabel("");
 
         paginationPanel.add(currentPage);
         paginationPanel.setBackground(Color.WHITE);
         this.previous.setEnabled(false);
 
-        //this.previous.setFocusPainted(false);
-        //this.next.setFocusPainted(false);
-
-
         this.footerPanel.setLayout(new BorderLayout());
-        this.footerPanel.add(previous,BorderLayout.WEST);
-        this.footerPanel.add(paginationPanel,BorderLayout.CENTER);
-        this.footerPanel.add(next,BorderLayout.EAST);
-
+        this.footerPanel.add(previous, BorderLayout.WEST);
+        this.footerPanel.add(paginationPanel, BorderLayout.CENTER);
+        this.footerPanel.add(next, BorderLayout.EAST);
 
         JPanel buttonPanel = new JPanel();
 
-        //this.setLayout(new BorderLayout());
         this.setLayout(new BorderLayout());
         buttonPanel.setLayout(new GridBagLayout());
-        
+
         this.setBackground(Color.WHITE);
         listeRdv.setBackground(Color.WHITE);
 
-        this.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
+        this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         this.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        //listeRdv.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
-
         colorSet = new Color(38, 171, 168);
-        aVenir = new CustomButton("À venir", colorSet,new Dimension(200,40),false);
-        passe = new CustomButton("Passé", Color.WHITE,new Dimension(200,40),false);
+        aVenir = new CustomButton("À venir", colorSet, new Dimension(200, 40), false);
+        passe = new CustomButton("Passé", Color.WHITE, new Dimension(200, 40), false);
 
-
-        GridBagConstraints c=new GridBagConstraints();
+        GridBagConstraints c = new GridBagConstraints();
 
         c.weightx = 0.5;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
         buttonPanel.add(aVenir, c);
-        
-        
+
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 0.5;
         c.gridx = 1;
         c.gridy = 0;
         buttonPanel.add(passe, c);
-       
-        //---------------- PANEL AFICHAGE RDV
-        
-        this.add(buttonPanel,BorderLayout.NORTH);
+
+        // ---------------- PANEL AFICHAGE RDV
+
+        this.add(buttonPanel, BorderLayout.NORTH);
 
         this.patientScheduleController = new PatientScheduleController(this);
         aVenir.addActionListener(this.patientScheduleController);
@@ -124,8 +112,8 @@ public class PatientSchedule extends JPanel {
         this.patientScheduleController.loadSchedule();
     }
 
-    public void afficherRDV(ArrayList<Reservation> liste){
-        this.liste=liste;
+    public void afficherRDV(ArrayList<Reservation> liste) {
+        this.liste = liste;
         JLabel labelDate;
         JLabel labelDoctor;
 
@@ -135,85 +123,74 @@ public class PatientSchedule extends JPanel {
         JPanel rdv;
         String date;
 
-        if(this.hasNext()){
+        if (this.hasNext()) {
             this.next.setEnabled(true);
-            currentNbReservation=4;
-        }
-        else{
+            currentNbReservation = 4;
+        } else {
             this.next.setEnabled(false);
-            currentNbReservation=liste.size()>4? Math.abs(liste.size()-4): liste.size();
+            currentNbReservation = liste.size() > 4 ? Math.abs(liste.size() - 4) : liste.size();
         }
-        
-        if(this.hasPrevious())
+
+        if (this.hasPrevious())
             this.previous.setEnabled(true);
         else
             this.previous.setEnabled(false);
 
-       currentMax=(page*4>liste.size())?liste.size():page*4;
-        
-        this.footerPanel.setPreferredSize(new Dimension(239 ,40+ (108* (4-currentNbReservation))));
-        this.footerPanel.setMaximumSize(new Dimension(239,40+ (108* (4-currentNbReservation))));
+        currentMax = (page * 4 > liste.size()) ? liste.size() : page * 4;
 
-        this.currentPage.setText(4*(page-1)+1+" - "+currentMax+" sur "+liste.size()+" ");
+        this.footerPanel.setPreferredSize(new Dimension(239, 40 + (108 * (4 - currentNbReservation))));
+        this.footerPanel.setMaximumSize(new Dimension(239, 40 + (108 * (4 - currentNbReservation))));
+
+        this.currentPage.setText(4 * (page - 1) + 1 + " - " + currentMax + " sur " + liste.size() + " ");
 
         listeRdv.setLayout(new BoxLayout(listeRdv, BoxLayout.Y_AXIS));
-        //listeRdv.setLayout(new GridBagLayout());
+        // listeRdv.setLayout(new GridBagLayout());
 
-
-        for(int i=4*(page-1);i<currentMax;i++){
+        for (int i = 4 * (page - 1); i < currentMax; i++) {
             LocalDate localDate = LocalDate.parse(liste.get(i).getDate().toString());
-
-            //LocalDate localDate = LocalDate.parse(liste.get(i).getDate().toString());
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(liste.get(i).getDate());
 
-            rdv= new JPanel();
+            rdv = new JPanel();
             rdv.setLayout(new BoxLayout(rdv, BoxLayout.Y_AXIS));
-            //rdv.setLayout(new GridBagLayout());
             rdv.setBackground(Color.WHITE);
-            rdv.setMinimumSize(new Dimension(Constants.width,80));
+            rdv.setMinimumSize(new Dimension(Constants.width, 80));
+            rdv.setBorder(new EmptyBorder(30, 0, 0, 0));
 
-            rdv.setBorder(new EmptyBorder(30,0,0,0));
-
-            panelDate= new JPanel();
+            panelDate = new JPanel();
             panelDoctor = new JPanel();
 
-            panelDate.setMaximumSize(new Dimension(891,39));
-            panelDoctor.setMaximumSize(new Dimension(891,39));
+            panelDate.setMaximumSize(new Dimension(891, 39));
+            panelDoctor.setMaximumSize(new Dimension(891, 39));
 
-            panelDate.setPreferredSize(new Dimension(891,39));
-            panelDoctor.setPreferredSize(new Dimension(891,39));
-            
-            date=localDate.format(DateTimeFormatter.ofPattern("EEEE d MMMM",Locale.FRENCH))+" "+calendar.get(Calendar.YEAR);
-            
-            labelDate = new JLabel("Le "+date+" à "+liste.get(i).getTime().substring(0,liste.get(i).getTime().lastIndexOf(":")));
-            labelDoctor =  new JLabel("Dr "+liste.get(i).getPatient().getFirstname()+" "+liste.get(i).getPatient().getLastname());
-            
-            labelDate.setBorder(new EmptyBorder(0,15,0,0));
-            labelDoctor.setBorder(new EmptyBorder(0,15,0,0));
+            panelDate.setPreferredSize(new Dimension(891, 39));
+            panelDoctor.setPreferredSize(new Dimension(891, 39));
 
-            //labelDate.setOpaque(true);
-            //labelDoctor.setOpaque(true);
+            date = localDate.format(DateTimeFormatter.ofPattern("EEEE d MMMM", Locale.FRENCH)) + " "
+                    + calendar.get(Calendar.YEAR);
 
+            labelDate = new JLabel("Le " + date + " à "
+                    + liste.get(i).getTime().substring(0, liste.get(i).getTime().lastIndexOf(":")));
+            labelDoctor = new JLabel(liste.get(i).getPatient().toString());
+
+            labelDate.setBorder(new EmptyBorder(0, 15, 0, 0));
             labelDate.setForeground(Color.WHITE);
+            labelDoctor.setBorder(new EmptyBorder(0, 15, 0, 0));
 
             panelDate.setLayout(new BorderLayout());
             panelDoctor.setLayout(new BorderLayout());
 
-            panelDate.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
-            panelDoctor.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
+            panelDate.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+            panelDoctor.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
             panelDate.setBackground(AppColor.PRIMARY_DARK);
             panelDoctor.setBackground(Color.WHITE);
 
-            panelDate.add(labelDate,BorderLayout.WEST);
+            panelDate.add(labelDate, BorderLayout.WEST);
+            panelDoctor.add(labelDoctor, BorderLayout.WEST);
 
-            panelDoctor.add(labelDoctor,BorderLayout.WEST);
- 
             rdv.add(panelDate);
-
-           
             rdv.add(panelDoctor);
 
             this.listeRdv.add(rdv);
@@ -221,19 +198,20 @@ public class PatientSchedule extends JPanel {
         }
 
         this.listeRdv.add(footerPanel);
-        footerPanel.setBorder(new EmptyBorder(21 + (108* (4-currentNbReservation)),0,0,0));
+        footerPanel.setBorder(new EmptyBorder(21 + (108 * (4 - currentNbReservation)), 0, 0, 0));
         footerPanel.setBackground(Color.WHITE);
         listeRdv.setBackground(Color.WHITE);
 
-        this.add(listeRdv,BorderLayout.CENTER);
-        
+        this.add(listeRdv, BorderLayout.CENTER);
+
     }
 
-    public void cleanListeRDV(){
+    public void cleanListeRDV() {
         this.listeRdv.removeAll();
         this.listeRdv.revalidate();
         this.listeRdv.repaint();
     }
+
     public CustomButton getaVenir() {
         return aVenir;
     }
@@ -265,9 +243,11 @@ public class PatientSchedule extends JPanel {
     public void setNext(CustomButton next) {
         this.next = next;
     }
+
     public void setPage(int page) {
         this.page = page;
     }
+
     public int getPage() {
         return page;
     }
@@ -279,12 +259,13 @@ public class PatientSchedule extends JPanel {
     public void setOld(boolean isOld) {
         this.isOld = isOld;
     }
-    public boolean hasNext(){
-        return page*4<this.liste.size();
+
+    public boolean hasNext() {
+        return page * 4 < this.liste.size();
     }
 
-    public boolean hasPrevious(){
-        return page>1;
+    public boolean hasPrevious() {
+        return page > 1;
     }
 
 }
