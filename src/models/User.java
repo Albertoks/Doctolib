@@ -50,7 +50,7 @@ public class User {
 
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
-        return admin ? "Dr. " + this.firstname + " " + this.lastname : this.firstname + " " + this.lastname;
+        return admin != null && admin ? "Dr. " + this.firstname + " " + this.lastname
+                : this.firstname + " " + this.lastname;
     }
 }
